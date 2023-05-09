@@ -1,0 +1,21 @@
+username,name,mail_adress,password,description,age,sex,body_weight,height,city_id,gym_id,workout_days,time_prefere,muscle_preference
+user1,Jennifer Lopez,jlopez@gmail.com,pass1234,"I love dancing and staying active",30,0,60,165,1,1,5,1,5
+user2,Michael Jordan,mjordan@yahoo.com,pass5678,"Basketball is my passion",45,1,90,198,2,3,3,3,2
+user3,Emma Watson,ewatson@hotmail.com,pass2468,"Acting and yoga are my favorite hobbies",25,0,50,163,3,2,4,2,4
+user4,Chris Evans,cevans@gmail.com,pass1357,"I enjoy weightlifting and running",35,1,85,183,1,1,6,1,1
+user5,Adele Atkins,aatkins@yahoo.com,pass3691,"Music and hiking are my go-to activities",40,0,70,175,2,4,4,4,3
+user6,Tom Brady,tbrady@hotmail.com,pass8024,"Football is my life",42,1,100,193,3,2,5,3,2
+user7,Beyonce Knowles,bknowles@gmail.com,pass5793,"I love dancing and doing pilates",36,0,65,170,1,1,3,2,5
+user8,LeBron James,ljames@yahoo.com,pass2468,"Basketball and weightlifting keep me fit",32,1,95,203,2,3,5,4,2
+user9,Scarlett Johansson,sjohansson@hotmail.com,pass8024,"Acting and martial arts are my passions",28,0,55,160,3,2,6,2,1
+user10,David Beckham,dbeckham@gmail.com,pass1357,"Soccer and swimming are my favorite sports",39,1,80,180,1,4,4,3,4
+user11,Lady Gaga,lgaga@yahoo.com,pass3691,"I love singing and doing yoga",34,0,60,165,2,1,3,2,3
+user12,Usain Bolt,ubolt@hotmail.com,pass5793,"Running and weightlifting are my training routine",30,1,90,193,3,3,5,1,1
+user13,Taylor Swift,tswift@gmail.com,pass1234,"Singing and hiking are my hobbies",31,0,55,168,1,4,4,4,4
+user14,Rafael Nadal,rnadal@yahoo.com,pass5678,"Tennis and swimming keep me active",35,1,85,183,2,2,3,3,2
+user15,Selena Gomez,sgomez@hotmail.com,pass2468,"Acting and dancing are my passions",24,0,50,160,3,1,6,1,5
+user16,Uschi Disl,udisl@gmail.com,pass1357,"Biathlon and hiking are my favorite activities",50,0,60,168,1,3,5,2,1
+user17,Maria Rodriguez,mrodriguez@gmail.com,pass1234,"Me encanta hacer cardio y salir a correr",29,0,55,160,1,1,5,4,0
+user18,Usama Malik,umalik@gmail.com,pass2468,"I enjoy bodybuilding and weightlifting",27,1,80,175,2,4,6,3,1
+user19,Julia Roberts,jroberts@hotmail.com,pass8024,"Acting and hiking are my hobbies",53,0,65,170,3,1,3,1,4
+user20,Chris Hemsworth,chemsworth@yahoo.com,pass1357,"I love surfing and doing yoga",37,1,90,190,1,2,4,2,5
