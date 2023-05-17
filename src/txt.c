@@ -1,3 +1,5 @@
+// https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
+
 #include "../headers/txt.h"
 #include "../headers/main.h"
 #include "../headers/user.h"
@@ -29,6 +31,16 @@ char * spaces(char* str) {
   return spaces_str;
 }
 
+char* divide_str(char* str, int line_length) {
+  for(int i = line_length; i > 0; i--) {
+    if(strcmp(&str[i], " ") == 0) {
+      str[i] = '\n';
+      return " ";
+    } else return "n";
+  }
+  return "f";
+}
+
 void print_user_info(User* user) {
   char* username = user->username;
   char* description = user->description;
@@ -36,6 +48,8 @@ void print_user_info(User* user) {
   int sex = user->sex;
   int height = user->height;
   int weight = user->body_weight;
+
+  printf(divide_str(description, 25));
 
   /*
   Imprime la información del usuario con el formato siguiente:

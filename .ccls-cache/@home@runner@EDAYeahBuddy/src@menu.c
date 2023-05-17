@@ -9,9 +9,8 @@
 
 void flush_input() {
     char c;
-    while ((c = getchar()) != '\n' && c != EOF) {
-    }
-};
+    while ((c = getchar()) != '\n' && c != EOF) {}
+}
 
 void ask_user(userArray* array){
   char username[MAX_LENGTH], email[MAX_LENGTH], name[MAX_LENGTH];
@@ -41,7 +40,35 @@ void ask_user(userArray* array){
   usuario->age = age;
   usuario->city_id = city_id;
 }
+void show_friends_menu(User* user, userArray* array){
+  // Texto del submenú
+    char txt0_1_submenu[MAX_TEXT] = "\n0) Cerrar pantalla\n1) Enviar solicitud de amistad. \n2) Ver solicitud de amistad \n3) Ver lista de amigos\n\n";
+    int option_friends = OPTION_INVALID;
+    while(option_friends != OPTION_QUIT) {
+      
+      printf("%s", txt0_1_submenu); // Imprime el menú
+      scanf("%d", &option_friends);
+      
+      flush_input(); // Vacía el buffer de entrada
+      char searchUsername[MAX_LENGTH];
+      if(option_friends  == 1) {  //Emviar solicitud de amistad.
+      
+        printf("Nombre del usuario:\n ");
+        scanf("%s",searchUsername);
+        User *foundUser = search_user(searchUsername, array);
+        if(foundUser != NULL){
+          printf("Usuario encontrado: %s \n", foundUser -> username);
+            
+        }else{
+          printf("Usuario no encotrado \n");
+        }
+        free(foundUser);
+      }else if(option_friends  == 2) {  //Ver solicitud de amistad
 
+      }else if(option_friends  == 3) {  //Ver lista de amigos
+       }
+    }
+}
 /*
 * Función submenú. Muestra un submenú cuando se escoge la opción
 * 3) Operar como usuario específico en la función menu()
@@ -63,25 +90,15 @@ void show_submenu(User* user, userArray* array){
     if(option_submenu == 1) {  
       print_user_info(user);
     } else if(option_submenu == 2) {  //Amigo
-      
-      printf("Nombre del usuario:\n ");
-      scanf("%s",searchUsername);
-      User *foundUser = search_user(searchUsername, array);
-        if(foundUser != NULL){
-          printf("Usuario encontrado: %s \n", foundUser -> username);
-        
-        }else{
-          printf("Usuario no encotrado \n");
-        }
-      free(user);
-   
+      show_friends_menu(user, array);
+    
     } else if(option_submenu == 3){  // Realizar una publicación
       
     } else if (option_submenu != OPTION_QUIT) {  // Opción inválida
       printf("¡Opción inválida!\n");
     }
   }
-};
+}
 
 /*
 * Función menú. Muestra el menú principal

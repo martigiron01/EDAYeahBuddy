@@ -8,9 +8,9 @@ typedef struct _user{
   char username[MAX_LENGTH];
   char name[MAX_LENGTH];
   char mail_adress[MAX_LENGTH];
-  struct _user ** friendQueue;
-  struct _user * friend_first;
-  int friend_size;
+  struct _user ** requestsQueue;
+  struct _user * requests_first;
+  int requests_size;
   char description[MAX_DESCRIPTION];
   int age;
   int sex;
