@@ -2,17 +2,21 @@
 #include "../headers/main.h"
 #include "../headers/user.h"
 #include "../headers/data.h"
-#include "../headers/txt.h"
+#include "../headers/interface.h"
+#include "../headers/friends.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 
 void flush_input() {
     char c;
     while ((c = getchar()) != '\n' && c != EOF) {}
 }
 
+
 void ask_user(userArray* array){
+  
   char username[MAX_LENGTH], email[MAX_LENGTH], name[MAX_LENGTH];
   int age, city_id;
   printf("\nInserte nombre de usuario:\n");
@@ -24,10 +28,11 @@ void ask_user(userArray* array){
   if(code == 0){
     printf("\nFallo en la asignación de memória!\n");
     return;
-  }else if(code == -1){
+  } else if(code == -1){
     printf("\nUsuario y/o correo electónico ya en uso!\n");
     return;
   }
+  
   printf("\nPerfecto! Datos personales:\n Nombre:\n");
   scanf("%s", name);
   printf("\nEdad:\n");
@@ -42,32 +47,33 @@ void ask_user(userArray* array){
 }
 void show_friends_menu(User* user, userArray* array){
   // Texto del submenú
-    char txt0_1_submenu[MAX_TEXT] = "\n0) Cerrar pantalla\n1) Enviar solicitud de amistad. \n2) Ver solicitud de amistad \n3) Ver lista de amigos\n\n";
-    int option_friends = OPTION_INVALID;
-    while(option_friends != OPTION_QUIT) {
+  char txt0_1_submenu[MAX_TEXT] = "\n0) Cerrar pantalla\n1) Enviar solicitud de amistad. \n2) Ver solicitud de amistad \n3) Ver lista de amigos\n\n";
+  int option_friends = OPTION_INVALID;
+    
+  while(option_friends != OPTION_QUIT) {
       
-      printf("%s", txt0_1_submenu); // Imprime el menú
-      scanf("%d", &option_friends);
+    printf("%s", txt0_1_submenu); // Imprime el menú
+    scanf("%d", &option_friends);
       
-      flush_input(); // Vacía el buffer de entrada
-      char searchUsername[MAX_LENGTH];
-      if(option_friends  == 1) {  //Emviar solicitud de amistad.
+    flush_input(); // Vacía el buffer de entrada
+    char searchUsername[MAX_LENGTH];
+    if(option_friends  == 1) {  //Emviar solicitud de amistad.
       
-        printf("Nombre del usuario:\n ");
-        scanf("%s",searchUsername);
-        User *foundUser = search_user(searchUsername, array);
-        if(foundUser != NULL){
-          printf("Usuario encontrado: %s \n", foundUser -> username);
+      printf("Nombre del usuario:\n ");
+      scanf("%s",searchUsername);
+      User *foundUser = search_user(searchUsername, array);
+      if(foundUser != NULL){
+        printf("Usuario encontrado: %s \n", foundUser -> username);
             
-        }else{
-          printf("Usuario no encotrado \n");
+      } else {
+        printf("Usuario no encotrado \n");
         }
-        free(foundUser);
-      }else if(option_friends  == 2) {  //Ver solicitud de amistad
+    } else if(option_friends  == 2) {  //Ver solicitud de amistad
 
-      }else if(option_friends  == 3) {  //Ver lista de amigos
-       }
+    } else if(option_friends  == 3) { //Ver lista de amigos
+
     }
+  }
 }
 /*
 * Función submenú. Muestra un submenú cuando se escoge la opción
@@ -125,9 +131,13 @@ void show_menu(userArray* array) {
         char username[25];
         printf("\nIntroduce el nombre de usuario:\n");
         scanf("%s", username);
-        User * user = (User*)malloc(sizeof(User));
+        User * user = (User*) malloc(sizeof(User));
         user = search_user(username, array);
-        show_submenu(user, array);
+        if(user == NULL) {
+          printf("\nEste usuario no es válido.\n");
+        } else {
+          show_submenu(user, array);
+        }
     } else if (option != OPTION_QUIT) {  // Opción inválida
         printf("¡Opción inválida!\n");
     }

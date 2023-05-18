@@ -15,4 +15,9 @@ bool requests_is_empty(User * user);
  */
 void requests_enqueue(User * user, User * new_friend);
 
+/* PRE: Receives an initialized user
+ * POST: Dequeues the first request of the user
+ */
+void requests_dequeue(User * user);
+
 #endif

@@ -1,14 +1,11 @@
 // https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
 
-#include "../headers/txt.h"
+#include "../headers/interface.h"
 #include "../headers/main.h"
 #include "../headers/user.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-
-// Longitud máxima de una línea sin contar asteríscos y márgenes
-#define MAX_LINE_LENGTH 25
 
 char * sex_char(int id) {
   char* sex_char = (char*) malloc(sizeof(char));
@@ -48,8 +45,6 @@ void print_user_info(User* user) {
   int sex = user->sex;
   int height = user->height;
   int weight = user->body_weight;
-
-  printf(divide_str(description, 25));
 
   /*
   Imprime la información del usuario con el formato siguiente:

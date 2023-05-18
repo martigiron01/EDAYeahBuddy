@@ -4,8 +4,8 @@
 #include <stdio.h>
 
 /* 
-* PRE:
-* POST:
+* PRE: Receives a userArray
+* POST: Saves the array siza and data into userArray.dat
 */
 void save_data(userArray* array);
 
