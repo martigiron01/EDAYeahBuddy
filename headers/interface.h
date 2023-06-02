@@ -7,6 +7,12 @@
 // Longitud máxima de una línea sin contar asteríscos y márgenes
 #define MAX_LINE_LENGTH 25
 
+
+/* PRE: receives a positive integer i
+ * POST: prints a line of i "-"
+ */
+void print_line(int i);
+
 /* PRE: receives an id
  * 
  */

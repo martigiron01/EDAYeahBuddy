@@ -4,5 +4,6 @@
 #define MAX_LENGTH 50
 #define MAX_TEXT 256
 #define MAX_DESCRIPTION 100
+#define SEPARATION_LINE_LENGTH 50
 
 #endif

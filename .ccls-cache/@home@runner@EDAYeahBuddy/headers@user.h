@@ -10,6 +10,7 @@ typedef struct _user{
   char mail_adress[MAX_LENGTH];
   struct _user ** requestsQueue;
   struct _user * requests_first;
+  struct friendsNode* friends_head;
   int requests_size;
   char description[MAX_DESCRIPTION];
   int age;

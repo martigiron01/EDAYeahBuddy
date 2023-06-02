@@ -6,6 +6,7 @@
 #include "../headers/main.h"
 #include "../headers/preferences.h"
 #include "../headers/user.h"
+#include "../headers/menu.h"
 
 userArray * init_array() {
   userArray * u = malloc(sizeof(userArray));
@@ -17,6 +18,7 @@ void add_user(User user,userArray * array){
   array -> size++;
   array -> data = malloc(array -> size * sizeof(User));
   array -> data[array->size - 1] = user;
+  user.requestsQueue = (User **)malloc(sizeof(User*));
 }
 
 User* search_user(char * username, userArray * array){
@@ -96,30 +98,30 @@ int create_user(char * username, char * email, userArray * array){
   }
 
   // Finalmente creamos el nuevo usuario
-    User* new_user = (User *) malloc(sizeof(User));
+  User* new_user = (User *) malloc(sizeof(User));
   strcpy(new_user->username, username);
   strcpy(new_user->mail_adress, email);
 
   // Guardamos espacio extra en el array, si es necesario
   if (array->size >= sizeof(array->data) / sizeof(User)) {
-        User *new_data = realloc(array->data, (array->size + 1) * sizeof(User));
-        if (new_data == NULL) {
-            free(new_user); // Liberamos la memoria del nuevo usuario
-            return 0; // Fallo en la asignación de memoria
-        }
-        array->data = new_data;
-    }
+    User *new_data = realloc(array->data, (array->size + 1) * sizeof(User));
+      if (new_data == NULL) {
+        free(new_user); // Liberamos la memoria del nuevo usuario
+          return 0; // Fallo en la asignación de memoria
+      }
+      array->data = new_data;
+  }
 
-    // Agregamos el nuevo usuario al final del array
-    array->data[array->size] = *new_user;
-    array->size++;
+  // Agregamos el nuevo usuario al final del array
+  array->data[array->size] = *new_user;
+  array->size++;
 
-    // Devolvemos 1 indicando que el usuario fue creado correctamente
-    return 1;
+  // Devolvemos 1 indicando que el usuario fue creado correctamente
+  return 1;
 }
 
 void print_user_list(userArray * array){
-  printf("\n ***LISTA DE USUARIOS ACTUAL***:\n");
+  printf("\n ***LISTA DE USUARIOS ACTUAL***\n");
   for(int i = 0; i < array->size; i++){
     printf("%s\n", array->data[i].username);
   }

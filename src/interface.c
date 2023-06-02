@@ -7,8 +7,18 @@
 #include <string.h>
 #include <stdio.h>
 
+void print_line(int i) {
+  printf("\n");
+  while(i > 0) {
+    printf("-");
+    i--;
+  }
+  printf("\n");
+}
+
 char * sex_char(int id) {
   char* sex_char = (char*) malloc(sizeof(char));
+  
   if(id == 0) {
     sex_char = "F";
   } else if(id == 1) {
@@ -30,9 +40,12 @@ char * spaces(char* str) {
 
 char* divide_str(char* str, int line_length) {
   for(int i = line_length; i > 0; i--) {
+    
     if(strcmp(&str[i], " ") == 0) {
       str[i] = '\n';
+      
       return " ";
+      
     } else return "n";
   }
   return "f";

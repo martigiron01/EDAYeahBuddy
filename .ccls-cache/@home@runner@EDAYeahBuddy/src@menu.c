@@ -7,13 +7,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <stdbool.h>
 
 void flush_input() {
     char c;
     while ((c = getchar()) != '\n' && c != EOF) {}
 }
 
+bool yes_or_no(char* option){
+  if((strcmp(option,"y") == 0) || (strcmp(option, "yes") == 0) || (strcmp(option, "accept") == 0) )return true;
+  else if ((strcmp(option, "n") == 0)  || (strcmp(option, "no") == 0) || (strcmp(option, "decline") == 0) ) return false;
+  else return NULL;
+}
 
 void ask_user(userArray* array){
   
@@ -45,81 +50,103 @@ void ask_user(userArray* array){
   usuario->age = age;
   usuario->city_id = city_id;
 }
+
+
 void show_friends_menu(User* user, userArray* array){
   // Texto del submenú
-  char txt0_1_submenu[MAX_TEXT] = "\n0) Cerrar pantalla\n1) Enviar solicitud de amistad. \n2) Ver solicitud de amistad \n3) Ver lista de amigos\n\n";
+  char txt_friends_menu[MAX_TEXT] = "\n[0] - Volver atrás\n[1] - Enviar solicitud de amistad \n[2] - Ver solicitudes de amistad \n[3] - Ver lista de amigos\n\n";
   int option_friends = OPTION_INVALID;
     
   while(option_friends != OPTION_QUIT) {
-      
-    printf("%s", txt0_1_submenu); // Imprime el menú
+    
+    print_line(SEPARATION_LINE_LENGTH); // Separation line  
+    
+    printf("%s", txt_friends_menu); // Prints friends menu
     scanf("%d", &option_friends);
       
-    flush_input(); // Vacía el buffer de entrada
+    flush_input(); // Empties input buffer
+    
     char searchUsername[MAX_LENGTH];
-    if(option_friends  == 1) {  //Emviar solicitud de amistad.
-      
+    
+    if(option_friends  == 1) {  // Send friend request
       printf("Nombre del usuario:\n ");
       scanf("%s",searchUsername);
+      
       User *foundUser = search_user(searchUsername, array);
+      
       if(foundUser != NULL){
-        printf("Usuario encontrado: %s \n", foundUser -> username);
-            
+        printf("\nUsuario encontrado!\n");
+        requests_enqueue(user, foundUser);
+        printf("\nRequest sent to %s.", searchUsername);
+        
       } else {
-        printf("Usuario no encotrado \n");
+        printf("Usuario no encontrado!\n");
         }
-    } else if(option_friends  == 2) {  //Ver solicitud de amistad
-
-    } else if(option_friends  == 3) { //Ver lista de amigos
+    } else if(option_friends  == 2) {  // Ver solicitudes de amistad
+        requests_print(user);
+      
+    } else if(option_friends  == 3) { // Ver lista de amigos
 
     }
   }
 }
+
 /*
 * Función submenú. Muestra un submenú cuando se escoge la opción
 * 3) Operar como usuario específico en la función menu()
 */
 void show_submenu(User* user, userArray* array){
   // Texto del submenú
-  char txt_submenu[MAX_TEXT] = "\n0) Cerrar sesión\n1) Tu perfil \n2) Amigos \n3) Realizar una publicación\n\n";
-  char searchUsername[MAX_LENGTH];
+  char txt_submenu[MAX_TEXT] = "\n[0] - Cerrar sesión\n[1] - Tu perfil\n[2] - Amigos\n[3] - Realizar una publicación- [4] - Ver publicaiones de los usuarios\n\n";
   
+  char searchUsername[MAX_LENGTH];
   int option_submenu = OPTION_INVALID;
 
+  printf("\n Has iniciado sesión como %s\n", user->username);
+  
   while(option_submenu != OPTION_QUIT) {
-    printf("\n Has iniciado sesión como %s\n", user->username);
+    
+    print_line(SEPARATION_LINE_LENGTH); // Separation line
+    
     printf("%s", txt_submenu); // Imprime el menú
     scanf("%d", &option_submenu); // Usuario escoge opción
     
     flush_input(); // Vacía el buffer de entrada
-    
-    if(option_submenu == 1) {  
+
+    if(option_submenu == 1) {  // Your profile
       print_user_info(user);
-    } else if(option_submenu == 2) {  //Amigo
+    } else if(option_submenu == 2) {  // Friends
       show_friends_menu(user, array);
     
     } else if(option_submenu == 3){  // Realizar una publicación
-      
+   
+    } else if(option_submenu == 4){ //Ver publicaiones de los usuarios
+    
     } else if (option_submenu != OPTION_QUIT) {  // Opción inválida
       printf("¡Opción inválida!\n");
     }
   }
 }
 
+
+
 /*
-* Función menú. Muestra el menú principal
+* Menu function. Shows the main menu.
 */
 void show_menu(userArray* array) {
-  // Texto del menú
-  char txt_menu[MAX_TEXT] = "\n0) Salir\n1) Insertar nuevo usuario\n2) Lista de usuarios\n3) Operar como usuario específico\n\n";
+  // Menu text
+  char txt_menu[MAX_TEXT] = "\n[0] - Salir\n[1] - Insertar nuevo usuario\n[2] - Lista de usuarios\n[3] - Operar como usuario específico\n\n";
   
   int option = OPTION_INVALID;
   
   while(option != OPTION_QUIT) {
-    printf("%s", txt_menu); // Imprime el menú
-    scanf("%d", &option); // Usuario escoge opción
+
+    print_line(SEPARATION_LINE_LENGTH); // Separation line
     
-    flush_input(); // Vacía el buffer de entrada
+    printf("%s", txt_menu); // Prints the menu
+    scanf("%d", &option); // User choses option
+    
+    flush_input(); // Empties the input buffer
     
     if(option == 1) {  // Insertar nuevo usuario
         ask_user(array);
@@ -138,7 +165,7 @@ void show_menu(userArray* array) {
         } else {
           show_submenu(user, array);
         }
-    } else if (option != OPTION_QUIT) {  // Opción inválida
+    } else if (option != OPTION_QUIT) {  // Invalid option
         printf("¡Opción inválida!\n");
     }
   }
