@@ -4,13 +4,19 @@
 #include "main.h"
 #include <stdbool.h>
 
+typedef struct _friendsNode {
+  char name[MAX_LENGTH];
+  struct _friendsNode* next;
+} friendsNode;
+
 typedef struct _user{
   char username[MAX_LENGTH];
   char name[MAX_LENGTH];
   char mail_adress[MAX_LENGTH];
   struct _user ** requestsQueue;
   struct _user * requests_first;
-  struct friendsNode* friends_head;
+  struct _friendsNode * friends_first;
+
   int requests_size;
   char description[MAX_DESCRIPTION];
   int age;

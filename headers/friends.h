@@ -10,6 +10,8 @@
 
 //***REQUESTS QUEUE***
 
+void requests_init_queue(User* user);
+
 /* PRE: Receives an initialized user
  * POST: Return true if the user do not have friend requests, else false
  */
@@ -31,11 +33,6 @@ void requests_dequeue(User* user);
 void requests_print(User* user);
 
 //***FRIENDS LIST***
-typedef struct friendsNode {
-  char name[MAX_LENGTH];
-  struct friendsNode* next;
-} friendsNode;
-
 void add_friend(User* user, User* sender);
 void print_friends_list(User* user);
 

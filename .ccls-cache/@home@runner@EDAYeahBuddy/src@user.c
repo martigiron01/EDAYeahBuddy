@@ -7,6 +7,7 @@
 #include "../headers/preferences.h"
 #include "../headers/user.h"
 #include "../headers/menu.h"
+#include "../headers/friends.h"
 
 userArray * init_array() {
   userArray * u = malloc(sizeof(userArray));
@@ -115,6 +116,9 @@ int create_user(char * username, char * email, userArray * array){
   // Agregamos el nuevo usuario al final del array
   array->data[array->size] = *new_user;
   array->size++;
+
+  //Iniciamos sus subestructuras
+  requests_init_queue(new_user);
 
   // Devolvemos 1 indicando que el usuario fue creado correctamente
   return 1;

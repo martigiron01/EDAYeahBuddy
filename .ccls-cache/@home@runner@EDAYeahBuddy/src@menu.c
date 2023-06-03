@@ -76,7 +76,7 @@ void show_friends_menu(User* user, userArray* array){
       
       if(foundUser != NULL){
         printf("\nUsuario encontrado!\n");
-        requests_enqueue(user, foundUser);
+        requests_enqueue(foundUser, user);
         printf("\nRequest sent to %s.", searchUsername);
         
       } else {
@@ -97,7 +97,7 @@ void show_friends_menu(User* user, userArray* array){
 */
 void show_submenu(User* user, userArray* array){
   // Texto del submenú
-  char txt_submenu[MAX_TEXT] = "\n[0] - Cerrar sesión\n[1] - Tu perfil\n[2] - Amigos\n[3] - Realizar una publicación- [4] - Ver publicaiones de los usuarios\n\n";
+  char txt_submenu[MAX_TEXT] = "\n[0] - Cerrar sesión\n[1] - Tu perfil\n[2] - Amigos\n[3] - Realizar una publicación\n[4] - Ver publicaiones de los usuarios\n\n";
   
   char searchUsername[MAX_LENGTH];
   int option_submenu = OPTION_INVALID;
