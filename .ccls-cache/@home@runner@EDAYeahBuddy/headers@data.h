@@ -4,6 +4,11 @@
 #include <stdio.h>
 
 /* 
+* PRE: Receives the filename as a string
+* POST: Counts the number of lines
+*/
+int line_count(const char * filename);
+/* 
 * PRE: Receives a userArray
 * POST: Saves the array siza and data into userArray.dat
 */
@@ -14,4 +19,10 @@ void save_data(userArray* array);
 * POST: Returns the array in userArray format
 */
 void import_data(userArray* importedUserArray);
+
+
+void printUsers(User* usuarios, int num_users);
+
+void processUsers();
+
 #endif

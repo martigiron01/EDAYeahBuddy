@@ -11,7 +11,7 @@
 
 int main(void) {
   userArray* array = init_array();
-
+  processUsers();
   import_data(array);
   printyeahbuddy();
   show_menu(array);

@@ -9,14 +9,13 @@ typedef struct _friendsNode {
   struct _friendsNode* next;
 } friendsNode;
 
-typedef struct _user{
+typedef struct _user {
   char username[MAX_LENGTH];
   char name[MAX_LENGTH];
   char mail_adress[MAX_LENGTH];
-  struct _user ** requestsQueue;
-  struct _user * requests_first;
-  struct _friendsNode * friends_first;
-
+  struct _user** requestsQueue;
+  struct _user* requests_first;
+  struct _friendsNode* friends_first;
   int requests_size;
   char description[MAX_DESCRIPTION];
   int age;
@@ -27,10 +26,10 @@ typedef struct _user{
   int gym_id;
   int workout_days;
   int time_preference;
-  int muscle_preference; 
+  int muscle_preference;
 } User;
 
-typedef struct _userArray{
+typedef struct _userArray {
   int size;
   User* data;
 } userArray;
@@ -63,4 +62,5 @@ int create_user(char * username, char * email, userArray * array);
  * POST: Prints the user list
  */
 void print_user_list(userArray* array);
+
 #endif

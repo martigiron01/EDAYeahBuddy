@@ -15,8 +15,8 @@ void flush_input() {
 }
 
 bool yes_or_no(char* option){
-  if((strcmp(option,"y") == 0) || (strcmp(option, "yes") == 0) || (strcmp(option, "accept") == 0) )return true;
-  else if ((strcmp(option, "n") == 0)  || (strcmp(option, "no") == 0) || (strcmp(option, "decline") == 0) ) return false;
+  if((strcmp(option,"y") == 0) || (strcmp(option, "yes") == 0) || (strcmp(option, "accept") == 0) || (strcmp(option, "a") == 0))return true;
+  else if ((strcmp(option, "n") == 0)  || (strcmp(option, "no") == 0) || (strcmp(option, "decline") == 0) || (strcmp(option, "d") == 0)) return false;
   else return NULL;
 }
 
@@ -86,7 +86,7 @@ void show_friends_menu(User* user, userArray* array){
         requests_print(user);
       
     } else if(option_friends  == 3) { // Ver lista de amigos
-
+        print_friends_list(user);
     }
   }
 }
