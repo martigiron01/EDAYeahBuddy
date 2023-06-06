@@ -4,6 +4,7 @@
 #include "../headers/data.h"
 #include "../headers/interface.h"
 #include "../headers/friends.h"
+#include "../headers/posts.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -49,6 +50,9 @@ void ask_user(userArray* array){
   strcpy(usuario->name, name);
   usuario->age = age;
   usuario->city_id = city_id;
+
+  //Lo guardamos al archivo .txt
+  save_user(usuario, "users.txt");
 }
 
 
@@ -98,7 +102,6 @@ void show_friends_menu(User* user, userArray* array){
 void show_submenu(User* user, userArray* array){
   // Texto del submenú
   char txt_submenu[MAX_TEXT] = "\n[0] - Cerrar sesión\n[1] - Tu perfil\n[2] - Amigos\n[3] - Realizar una publicación\n[4] - Ver publicaiones de los usuarios\n\n";
-  
   char searchUsername[MAX_LENGTH];
   int option_submenu = OPTION_INVALID;
 
@@ -119,7 +122,7 @@ void show_submenu(User* user, userArray* array){
       show_friends_menu(user, array);
     
     } else if(option_submenu == 3){  // Realizar una publicación
-   
+      char* post = create_post();
     } else if(option_submenu == 4){ //Ver publicaiones de los usuarios
     
     } else if (option_submenu != OPTION_QUIT) {  // Opción inválida
@@ -169,5 +172,4 @@ void show_menu(userArray* array) {
         printf("¡Opción inválida!\n");
     }
   }
-  save_data(array);
 }

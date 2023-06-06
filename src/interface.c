@@ -75,7 +75,7 @@ void print_user_info(User* user) {
   *  Peso: [Weight]             *
   * * * * * * * * * * * * * * * *
   */
-
-  printf("\n* * * * * * * * * * * * * * * *\n*  %s%s  *\n*                             *\n*  %s%s  *\n* * * * * * * * * * * * * * * *\n*  Información personal       *\n*                             *\n*  Edad: %d                   *\n*  Sexo: %s                    *\n*  Altura: %d cm             *\n*  Peso: %d%s kg  *\n* * * * * * * * * * * * * * * *\n", username, spaces(username), description, spaces(description), age, sex_char(sex), height, weight, " ");
+ // printf("%c", spaces(username)[-1]);
+  printf("\n* * * * * * * * * * * * * * * *\n*  %s%s  *\n*                             *\n*  %s%s  *\n* * * * * * * * * * * * * * * *\n*  Información personal       *\n*                             *\n*  Edad: %d                   *\n*  Sexo: %s                    *\n*  Altura: %d cm             *\n*  Peso: %d%s kg               *\n* * * * * * * * * * * * * * * *\n", username, spaces(username), description, spaces(description), age, sex_char(sex), height, weight, " ");
 
 }

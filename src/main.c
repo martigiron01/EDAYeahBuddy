@@ -11,8 +11,8 @@
 
 int main(void) {
   userArray* array = init_array();
-  processUsers();
-  import_data(array);
+  /*processUsers();*/
+  import_data(array, "users.txt", "posts.txt");
   printyeahbuddy();
   show_menu(array);
   free(array->data);

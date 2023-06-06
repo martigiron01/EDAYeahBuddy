@@ -1,0 +1,7 @@
+0 RogerG Roger roger@gmail.com sd- 18 1 52 190 8080 0 0 0 0
+1 JohnD John johnd@gmail.com Fitness enthusiast and avid runner - 32 1 70 142 12345 67890 135 0912 3
+2 JaneS Jane janes@gmail.com Yoga lover and nature enthusiast - 28 0 60 183 54321 98765 246 1215 2
+3 MikeJ Mike mikej@gmail.com Bodybuilder and weightlifting enthusiast - 35 1 80 102 98765 43210 123456 1519 5
+4 LisaB Lisa lisab@gmail.com CrossFit lover and adventure seeker - 29 0 65 243 23456 78901 135 1924 4
+5 DavidW David davidw@gmail.com Beginner in fitness, looking to improve - 42 1 90 114 87654 21098 246 2406 1
+6 martina Martina maartina@gmail.com - 36 0 0 0 8100 0 0 0 0
