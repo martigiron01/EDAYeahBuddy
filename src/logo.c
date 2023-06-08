@@ -13,7 +13,7 @@ void printyeahbuddy() {
   printf("  YY   EE     AA   AA  HH   HH      BB  BB  UU  UU  DD  DD DD  DD    YY\n");
   printf("  YY   EEEE   AA   AA  HH   HH      BBBBB    UUUU   DDDD   DDDD      YY\n");
 
-  printf("\nPresiona cualquier tecla para continuar...\n");
+  printf("\nPress any key to continue...\n");
   getchar();  // Esperar hasta que se presione una tecla
     
 }

@@ -51,7 +51,7 @@ void requests_dequeue(User* user){
 }
 
 void requests_print(User * user){
-  printf("*** SOLICITUDES DE AMISTAD ***\n");
+  printf("*** FRIENDSHIP REQUESTS ***\n");
   
   if(requests_is_empty(user)) {
     printf("\nYou have no requests!\n");
@@ -73,20 +73,20 @@ void requests_print(User * user){
 
       switch (choice) {
         case true:
-          printf("Solicitud aceptada!\n");
+          printf("Request accepted!\n");
           add_friend(user, user->requestsQueue[i]);
           requests_dequeue(user);
           validInput = true;
           break;
 
         case false:
-          printf("Solicitud denegada!\n");
+          printf("Request denied!\n");
           requests_dequeue(user);
           validInput = true;
           break;
 
         default:
-          printf("Opción incorrecta! Introduzca [accept] o [decline]:\n");
+          printf("Wrong choice! Please enter [accept] or [decline]:\n");
           flush_input();
           break;
       }
@@ -104,8 +104,8 @@ void print_friends_list(User* user) {
   friendsNode* current = user->friends_first;
   
   // If the linked list is empty, user has no added friends
-  if(current == NULL) printf("Aún no has agregado a nadie.");
-  else printf("Lista de amigos:\n\n");
+  if(current == NULL) printf("You haven't added anyone yet.");
+  else printf("Friends list:\n\n");
 
   // Print all friends names until it reaches the last
   while(current != NULL) {

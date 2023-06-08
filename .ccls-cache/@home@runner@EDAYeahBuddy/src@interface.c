@@ -28,15 +28,14 @@ char * sex_char(int id) {
   return sex_char;
 }
 
-char * spaces(char* str) {
+int spaces(char* str) {
   int spaces = MAX_LINE_LENGTH - strlen(str);
-  char* spaces_str = (char*) malloc(sizeof(char) * spaces);
-  
-  for(int i = 0; i < spaces; i++) {
+  return spaces;
+}
+/*for(int i = 0; i < spaces; i++) {
     spaces_str[i] = ' ';
   }
-  return spaces_str;
-}
+  return spaces_str;*/
 
 char* divide_str(char* str, int line_length) {
   for(int i = line_length; i > 0; i--) {
@@ -76,6 +75,14 @@ void print_user_info(User* user) {
   * * * * * * * * * * * * * * * *
   */
  // printf("%c", spaces(username)[-1]);
-  printf("\n* * * * * * * * * * * * * * * *\n*  %s%s  *\n*                             *\n*  %s%s  *\n* * * * * * * * * * * * * * * *\n*  Información personal       *\n*                             *\n*  Edad: %d                   *\n*  Sexo: %s                    *\n*  Altura: %d cm             *\n*  Peso: %d%s kg               *\n* * * * * * * * * * * * * * * *\n", username, spaces(username), description, spaces(description), age, sex_char(sex), height, weight, " ");
+  printf("\n* * * * * * * * * * * * * * * *\n*  %s", username);
+  for(int i = 0; i<spaces(username); i++){
+    putchar(' ');
+  }
+  printf("  *\n*                             *\n*  %s", description);
+  for(int i = 0; i<spaces(description); i++){
+    putchar(' ');
+  }
+  printf("  *\n* * * * * * * * * * * * * * * *\n*  Información personal       *\n*                             *\n*  Edad: %d                   *\n*  Sexo: %s                    *\n*  Altura: %d cm             *\n*  Peso: %d kg                *\n* * * * * * * * * * * * * * * *\n", age, sex_char(sex), height, weight);
 
 }

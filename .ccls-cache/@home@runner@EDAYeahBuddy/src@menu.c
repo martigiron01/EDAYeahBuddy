@@ -4,7 +4,6 @@
 #include "../headers/data.h"
 #include "../headers/interface.h"
 #include "../headers/friends.h"
-#include "../headers/posts.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,42 +22,68 @@ bool yes_or_no(char* option){
 
 void ask_user(userArray* array){
   
-  char username[MAX_LENGTH], email[MAX_LENGTH], name[MAX_LENGTH];
-  int age, city_id;
-  printf("\nInserte nombre de usuario:\n");
+  char username[MAX_LENGTH], email[MAX_LENGTH], name[MAX_LENGTH], description[MAX_DESCRIPTION];
+  
+  printf("\nInsert username:\n");
   scanf("%s", username);
-  printf("\nInserte correo electrónico:\n");
+  printf("\nInsert email:\n");
   scanf("%s", email);
   
   int code = create_user(username, email, array);
+  
   if(code == 0){
-    printf("\nFallo en la asignación de memória!\n");
+    printf("\nMemory allocation failure!\n");
     return;
   } else if(code == -1){
-    printf("\nUsuario y/o correo electónico ya en uso!\n");
+    printf("\nUsername and/or email already in use!\n");
     return;
   }
   
-  printf("\nPerfecto! Datos personales:\n Nombre:\n");
+  User *user = search_user(username, array);
+  
+  printf("\nPerfect! Personal information:\n Nombre:\n");
   scanf("%s", name);
   printf("\nEdad:\n");
-  scanf("%d", &age);
-  printf("\nCódigo postal:\n");
-  scanf("%d", &city_id);
+  scanf("%d", &user->age);
+  printf("\nSex:\n");
+  scanf("%d", &user->sex);
+  printf("\nPostcode:\n");
+  scanf("%d", &user->city_id);
+
+  printf("\nNow let's create your fitness profile.\n");
+  printf("\nTell us about you: (Max. %d characters)", MAX_DESCRIPTION);
+  fgets(description, sizeof(description), stdin);
+  strcpy(description, user->description);
   
-  User *usuario = search_user(username, array);
-  strcpy(usuario->name, name);
-  usuario->age = age;
-  usuario->city_id = city_id;
+  printf("\nGym postcode:\n");
+  scanf("%d", &user->gym_id);
+  
+  printf("\nHeight:\n");
+  scanf("%d", &user->height);
+  
+  printf("\nCurrent body weight:\n");
+  scanf("%d", &user->body_weight);
+  
+  printf("\nWorkout days:\n");
+  scanf("%d", &user->workout_days);
+  
+  printf("\nTime preference:\n");
+  scanf("%d", &user->time_preference);
+  
+  printf("\nFavourite muscle group:\n");
+  scanf("%d", &user->muscle_preference);
+  
+ 
+  strcpy(user->name, name);
 
   //Lo guardamos al archivo .txt
-  save_user(usuario, "users.txt");
+  save_user(user, "users.txt");
 }
 
 
 void show_friends_menu(User* user, userArray* array){
   // Texto del submenú
-  char txt_friends_menu[MAX_TEXT] = "\n[0] - Volver atrás\n[1] - Enviar solicitud de amistad \n[2] - Ver solicitudes de amistad \n[3] - Ver lista de amigos\n\n";
+  char txt_friends_menu[MAX_TEXT] = "\n[0] - Go Back\n[1] - Send Friend Request \n[2] - View Friend Requests \n[3] - View Friend List\n\n";
   int option_friends = OPTION_INVALID;
     
   while(option_friends != OPTION_QUIT) {
@@ -73,18 +98,18 @@ void show_friends_menu(User* user, userArray* array){
     char searchUsername[MAX_LENGTH];
     
     if(option_friends  == 1) {  // Send friend request
-      printf("Nombre del usuario:\n ");
+      printf("Username:\n ");
       scanf("%s",searchUsername);
       
       User *foundUser = search_user(searchUsername, array);
       
       if(foundUser != NULL){
-        printf("\nUsuario encontrado!\n");
+        printf("\nUser found!\n");
         requests_enqueue(foundUser, user);
         printf("\nRequest sent to %s.", searchUsername);
         
       } else {
-        printf("Usuario no encontrado!\n");
+        printf("User not found!\n");
         }
     } else if(option_friends  == 2) {  // Ver solicitudes de amistad
         requests_print(user);
@@ -101,11 +126,11 @@ void show_friends_menu(User* user, userArray* array){
 */
 void show_submenu(User* user, userArray* array){
   // Texto del submenú
-  char txt_submenu[MAX_TEXT] = "\n[0] - Cerrar sesión\n[1] - Tu perfil\n[2] - Amigos\n[3] - Realizar una publicación\n[4] - Ver publicaiones de los usuarios\n\n";
+  char txt_submenu[MAX_TEXT] = "\n[0] - Sign out\n[1] - Your profile\n[2] - Friends\n[3] - Make a post\n[4] - View user posts\n\n";
   char searchUsername[MAX_LENGTH];
   int option_submenu = OPTION_INVALID;
 
-  printf("\n Has iniciado sesión como %s\n", user->username);
+  printf("\n You are logged in as %s\n", user->username);
   
   while(option_submenu != OPTION_QUIT) {
     
@@ -123,10 +148,15 @@ void show_submenu(User* user, userArray* array){
     
     } else if(option_submenu == 3){  // Realizar una publicación
       char* post = create_post();
+      push_post(user->posts, post);
+      save_post(post, user, "posts.txt");
+      printf("Succesfully posted!");
+      
     } else if(option_submenu == 4){ //Ver publicaiones de los usuarios
-    
+      
+      
     } else if (option_submenu != OPTION_QUIT) {  // Opción inválida
-      printf("¡Opción inválida!\n");
+      printf("Invalid option!\n");
     }
   }
 }
@@ -138,7 +168,7 @@ void show_submenu(User* user, userArray* array){
 */
 void show_menu(userArray* array) {
   // Menu text
-  char txt_menu[MAX_TEXT] = "\n[0] - Salir\n[1] - Insertar nuevo usuario\n[2] - Lista de usuarios\n[3] - Operar como usuario específico\n\n";
+  char txt_menu[MAX_TEXT] = "\n[0] - Exit\n[1] - Insert new user\n[2] - User list\n[3] - Operate as specific user\n\n";
   
   int option = OPTION_INVALID;
   
@@ -159,17 +189,17 @@ void show_menu(userArray* array) {
       
     } else if(option == 3){  // Operar como usuario específico
         char username[25];
-        printf("\nIntroduce el nombre de usuario:\n");
+        printf("\nEnter the username:\n");
         scanf("%s", username);
         User * user = (User*) malloc(sizeof(User));
         user = search_user(username, array);
         if(user == NULL) {
-          printf("\nEste usuario no es válido.\n");
+          printf("\nThis username is invalid.\n");
         } else {
           show_submenu(user, array);
         }
     } else if (option != OPTION_QUIT) {  // Invalid option
-        printf("¡Opción inválida!\n");
+        printf("Invalid option!\n");
     }
   }
 }

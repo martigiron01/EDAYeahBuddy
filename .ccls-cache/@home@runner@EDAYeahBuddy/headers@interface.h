@@ -4,7 +4,7 @@
 #include "user.h"
 #include <string.h>
 
-// Longitud máxima de una línea sin contar asteríscos y márgenes
+// Maximum length of a line not counting asterisks and margins
 #define MAX_LINE_LENGTH 25
 
 
@@ -21,7 +21,7 @@ char * sex_char(int id);
 /* PRE: receives a pointer to a string
  * POST: returns x number of such that x + string length = MAX_LINE_LENGTH
  */
-char * spaces(char* str);
+int spaces(char* str);
 
 char* divide_str(char* str, int line_length);
 

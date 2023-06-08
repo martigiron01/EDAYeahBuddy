@@ -1,10 +1,13 @@
 #ifndef POSTS_H
+#define POSTS_H
 
 #include "main.h"
+
 #include <stdio.h>
 #include <stdbool.h>
 
-#define MAX_POST_LENGTH 120
+
+#define MAX_POST_LENGTH 140
 
 typedef struct _postStack {
   char** data;
@@ -13,7 +16,7 @@ typedef struct _postStack {
 
 char* create_post();
 
-void posts_init_stack();
+postStack* posts_init_stack();
 bool posts_is_empty(postStack* stack);
 void push_post(postStack* stack, char* post);
 int pop_post(postStack* stack);

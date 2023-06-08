@@ -2,6 +2,7 @@
 #define USER_H
 
 #include "main.h"
+#include "posts.h"
 #include <stdbool.h>
 
 typedef struct _friendsNode {
@@ -17,6 +18,7 @@ typedef struct _user {
   struct _user* requests_first;
   struct _friendsNode* friends_first;
   int requests_size;
+  postStack* posts;
   char description[MAX_DESCRIPTION];
   int age;
   int sex;

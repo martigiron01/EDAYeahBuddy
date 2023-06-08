@@ -34,17 +34,17 @@ User* search_user(char * username, userArray * array){
 
 
 bool check_data(char * username, char * email){
-  // Comprueba que el nombre de usuario contenga al menos 4 caracteres
+  // Check that the username contains at least 4 characters
     if (strlen(username) < 4) {
         return false;
     }
 
-    // Comprueba que el correo electrónico contenga al menos 5 caracteres (por ejemplo, "a@b.c")
+    // Check that the email contains at least 5 characters (for example, "a@b.c")
     if (strlen(email) < 5) {
         return false;
     }
 
-  // Comprueba que el correo electrónico contenga exactamente un @
+  // Check that the email contains exactly one @
     int at_count = 0;
     for (int i = 0; i < strlen(email); i++) {
         if (email[i] == '@') {
@@ -55,7 +55,7 @@ bool check_data(char * username, char * email){
         return false;
     }
 
-    // Comprueba que no haya espacios en blanco en el nombre de usuario o en el correo
+    // Check that there are no blank spaces in the username or email
     for (int i = 0; i < strlen(username); i++) {
         if (isspace(username[i])) {
             return false;
@@ -67,7 +67,7 @@ bool check_data(char * username, char * email){
         }
     }
 
-    // Comprueba que el correo electrónico tenga solo caracteres permitidos antes y después del @
+    // Check that the email has only allowed characters before and after the @
     bool before_at = true;
     bool after_at = false;
     for (int i = 0; i < strlen(email); i++) {
@@ -81,7 +81,7 @@ bool check_data(char * username, char * email){
         }
     }
 
-    // Si todo lo anterior fue válido devuleve el usario y correo electrónico
+    // If all of the above was valid, return the username and email
     return true;
 }
 
@@ -91,41 +91,43 @@ int create_user(char * username, char * email, userArray * array){
     return -1;
   }
 
-  // Comprobamos si el username o correo electrónico ya están en uso
+  // We check if the username or email is already in use
   for(int i = 0; i < array->size; i++){
     if((strcmp(array->data[i].username, username) == 0) || (strcmp(array->data[i].mail_adress, email) == 0)){
       return -1;
     }
   }
 
-  // Finalmente creamos el nuevo usuario
+  //Finally we create the new user
   User* new_user = (User *) malloc(sizeof(User));
   strcpy(new_user->username, username);
   strcpy(new_user->mail_adress, email);
-
-  // Guardamos espacio extra en el array, si es necesario
+  new_user->posts = posts_init_stack();
+  // We save extra space in the array, if necessary
   if (array->size >= sizeof(array->data) / sizeof(User)) {
     User *new_data = realloc(array->data, (array->size + 1) * sizeof(User));
       if (new_data == NULL) {
-        free(new_user); // Liberamos la memoria del nuevo usuario
-          return 0; // Fallo en la asignación de memoria
+        free(new_user); // We free the memory of the new user
+        printf("Memory allocation failure!\n");
+        return 0; // Memory allocation failure
       }
       array->data = new_data;
   }
 
-  // Agregamos el nuevo usuario al final del array
+  // We add the new user to the end of the array
   array->data[array->size] = *new_user;
   array->size++;
 
-  //Iniciamos sus subestructuras
+  //We start your substructures
   requests_init_queue(new_user);
+  
 
-  // Devolvemos 1 indicando que el usuario fue creado correctamente
+  // We return 1 indicating that the user was created correctly
   return 1;
 }
 
 void print_user_list(userArray * array){
-  printf("\n ***LISTA DE USUARIOS ACTUAL***\n");
+  printf("\n ***LIST OF CURRENT USERS***\n");
   for(int i = 0; i < array->size; i++){
     printf("%s\n", array->data[i].username);
   }

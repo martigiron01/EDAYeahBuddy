@@ -21,8 +21,6 @@ void import_data(userArray* importedUserArray, char* users_filename, char* posts
 */
 void save_user(User* user, char* filename);
 
-void printUsers(User* usuarios, int num_users);
-
-void processUsers();
+void save_post(char* post, User * user, char* filename);
 
 #endif
