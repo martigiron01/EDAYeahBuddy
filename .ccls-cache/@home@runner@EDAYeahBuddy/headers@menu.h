@@ -10,11 +10,13 @@ void ask_user(userArray* array);
 
 bool yes_or_no(char* option);
 
-void show_menu();
+void show_menu(userArray* array, Dictionary * dictionary);
+
+void show_friends_menu(User* user, userArray* array);
 
 void flush_input();
 
-void show_submenu();
+void show_submenu(User* user, userArray* array, Dictionary * dictionary);
 
 
 

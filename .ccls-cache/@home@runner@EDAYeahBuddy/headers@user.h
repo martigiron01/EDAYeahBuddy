@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 typedef struct _friendsNode {
-  char name[MAX_LENGTH];
+  char username[MAX_LENGTH];
   struct _friendsNode* next;
 } friendsNode;
 
@@ -35,6 +35,8 @@ typedef struct _userArray {
   int size;
   User* data;
 } userArray;
+
+
 /* PRE: -
  * POST: Return an empty Array
  */

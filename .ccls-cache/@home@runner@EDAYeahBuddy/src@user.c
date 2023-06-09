@@ -103,6 +103,7 @@ int create_user(char * username, char * email, userArray * array){
   strcpy(new_user->username, username);
   strcpy(new_user->mail_adress, email);
   new_user->posts = posts_init_stack();
+  requests_init_queue(new_user);
   // We save extra space in the array, if necessary
   if (array->size >= sizeof(array->data) / sizeof(User)) {
     User *new_data = realloc(array->data, (array->size + 1) * sizeof(User));
@@ -119,7 +120,8 @@ int create_user(char * username, char * email, userArray * array){
   array->size++;
 
   //We start your substructures
-  requests_init_queue(new_user);
+  //new_user->posts = posts_init_stack();
+  //requests_init_queue(new_user);
   
 
   // We return 1 indicating that the user was created correctly

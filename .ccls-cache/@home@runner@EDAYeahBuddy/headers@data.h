@@ -10,10 +10,10 @@
 int line_count(const char * filename);
 
 /* 
-* PRE: Reads a "userArray.dat" file with the previous arrays saved
-* POST: Returns the array in userArray format
+* PRE: Reads the files with users and posts
+* POST: Imports it all
 */
-void import_data(userArray* importedUserArray, char* users_filename, char* posts_filename);
+void import_data(userArray* array, char* users_filename, char* posts_filename, Dictionary * dictionary);
 
 /* 
 * PRE: Receives a user and a .txt file name as string

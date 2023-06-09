@@ -4,6 +4,7 @@
 #include "../headers/data.h"
 #include "../headers/interface.h"
 #include "../headers/friends.h"
+#include "../headers/dict.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,9 +42,9 @@ void ask_user(userArray* array){
   
   User *user = search_user(username, array);
   
-  printf("\nPerfect! Personal information:\n Nombre:\n");
+  printf("\nPerfect! Personal information:\n Name:\n");
   scanf("%s", name);
-  printf("\nEdad:\n");
+  printf("\nAge:\n");
   scanf("%d", &user->age);
   printf("\nSex:\n");
   scanf("%d", &user->sex);
@@ -76,14 +77,14 @@ void ask_user(userArray* array){
  
   strcpy(user->name, name);
 
-  //Lo guardamos al archivo .txt
+  // Store it in users.txt
   save_user(user, "users.txt");
 }
 
 
 void show_friends_menu(User* user, userArray* array){
   // Texto del submenú
-  char txt_friends_menu[MAX_TEXT] = "\n[0] - Go Back\n[1] - Send Friend Request \n[2] - View Friend Requests \n[3] - View Friend List\n\n";
+  char txt_friends_menu[MAX_TEXT] = "\n[0] - Go Back\n[1] - Send Friend Request \n[2] - View Friends Requests \n[3] - View Friend List\n\n";
   int option_friends = OPTION_INVALID;
     
   while(option_friends != OPTION_QUIT) {
@@ -116,6 +117,21 @@ void show_friends_menu(User* user, userArray* array){
       
     } else if(option_friends  == 3) { // Ver lista de amigos
         print_friends_list(user);
+      
+        char option_username[50];
+        printf("Write friend username to see its profile: (0 to quit)\n");
+        scanf("%s", option_username);
+      
+        if(option_username[0] == '0')continue;
+      
+        User * friend = search_user(option_username, array);
+      
+        if(friend == NULL){
+          printf("User not found!\n");
+        }else{
+          print_user_info(friend);
+        }
+        
     }
   }
 }
@@ -124,9 +140,9 @@ void show_friends_menu(User* user, userArray* array){
 * Función submenú. Muestra un submenú cuando se escoge la opción
 * 3) Operar como usuario específico en la función menu()
 */
-void show_submenu(User* user, userArray* array){
+void show_submenu(User* user, userArray* array, Dictionary * dictionary){
   // Texto del submenú
-  char txt_submenu[MAX_TEXT] = "\n[0] - Sign out\n[1] - Your profile\n[2] - Friends\n[3] - Make a post\n[4] - View user posts\n\n";
+  char txt_submenu[MAX_TEXT] = "\n[0] - Sign out\n[1] - Your profile\n[2] - Friends\n[3] - Add a post\n[4] - Feed\n\n";
   char searchUsername[MAX_LENGTH];
   int option_submenu = OPTION_INVALID;
 
@@ -146,16 +162,27 @@ void show_submenu(User* user, userArray* array){
     } else if(option_submenu == 2) {  // Friends
       show_friends_menu(user, array);
     
-    } else if(option_submenu == 3){  // Realizar una publicación
+    } else if(option_submenu == 3){  // Post
       char* post = create_post();
-      push_post(user->posts, post);
+      push_post(user->posts, post, dictionary);
       save_post(post, user, "posts.txt");
-      printf("Succesfully posted!");
+      printf("\nSuccesfully posted!");
       
-    } else if(option_submenu == 4){ //Ver publicaiones de los usuarios
+    } else if(option_submenu == 4){ // Ver publicaiones de los usuarios
+        FILE * fp = fopen("posts.txt", "r");
+        char caracter;
+        if (fp == NULL) {
+          printf("File opening error!\n");
+        }
+    
+        // Leer y mostrar el contenido del archivo
+        while ((caracter = fgetc(fp)) != EOF) {
+            printf("%c", caracter);
+        }
       
+        fclose(fp);
       
-    } else if (option_submenu != OPTION_QUIT) {  // Opción inválida
+    } else if (option_submenu != OPTION_QUIT) {  // Invalid option
       printf("Invalid option!\n");
     }
   }
@@ -166,9 +193,9 @@ void show_submenu(User* user, userArray* array){
 /*
 * Menu function. Shows the main menu.
 */
-void show_menu(userArray* array) {
+void show_menu(userArray* array, Dictionary * dictionary) {
   // Menu text
-  char txt_menu[MAX_TEXT] = "\n[0] - Exit\n[1] - Insert new user\n[2] - User list\n[3] - Operate as specific user\n\n";
+  char txt_menu[MAX_TEXT] = "\n[0] - Exit\n[1] - Insert new user\n[2] - Users list\n[3] - Operate as specific user\n[4] - Most used words\n\n";
   
   int option = OPTION_INVALID;
   
@@ -184,7 +211,7 @@ void show_menu(userArray* array) {
     if(option == 1) {  // Insertar nuevo usuario
         ask_user(array);
       
-    } else if(option == 2) {  // Lista de usuarios
+    } else if(option == 2) {  // Users list
         print_user_list(array);
       
     } else if(option == 3){  // Operar como usuario específico
@@ -196,8 +223,12 @@ void show_menu(userArray* array) {
         if(user == NULL) {
           printf("\nThis username is invalid.\n");
         } else {
-          show_submenu(user, array);
+          show_submenu(user, array, dictionary);
         }
+      
+    } else if(option == 4){  // Prints word count rank
+        print_dictionary_ranking(dictionary);
+      
     } else if (option != OPTION_QUIT) {  // Invalid option
         printf("Invalid option!\n");
     }

@@ -14,7 +14,7 @@
 void requests_init_queue(User* user) {
   user->requests_first = NULL;
   user->requests_size = 0;
-  user->requestsQueue = (User **) malloc(sizeof(User *));
+  user->requestsQueue = (User**) malloc(sizeof(User*));
 }
 
 bool requests_is_empty(User* user){
@@ -23,7 +23,7 @@ bool requests_is_empty(User* user){
 }
 
 void requests_enqueue(User* user, User* new_friend){
-  user->requestsQueue = (User **) realloc(user->requestsQueue, (user->requests_size + 2) * sizeof(User*));
+  user->requestsQueue = (User**) realloc(user->requestsQueue, (user->requests_size + 2) * sizeof(User*));
   
   if (user->requestsQueue == NULL) {
     printf("\nMemory error!\n");
@@ -50,7 +50,7 @@ void requests_dequeue(User* user){
   }
 }
 
-void requests_print(User * user){
+void requests_print(User* user){
   printf("*** FRIENDSHIP REQUESTS ***\n");
   
   if(requests_is_empty(user)) {
@@ -109,7 +109,7 @@ void print_friends_list(User* user) {
 
   // Print all friends names until it reaches the last
   while(current != NULL) {
-    printf("%s\n", current->name);
+    printf("%s\n", current->username);
     current = current->next;
   }
 }
@@ -118,7 +118,7 @@ void add_friend(User* user, User* sender) {
   friendsNode* current = user->friends_first;
   friendsNode* newFriend = (friendsNode*) malloc(sizeof(friendsNode));
 
-  strcpy(newFriend->name, sender->name);
+  strcpy(newFriend->username, sender->username);
   newFriend->next = NULL;
 
   if(current == NULL) {
@@ -133,4 +133,22 @@ void add_friend(User* user, User* sender) {
     current->next = newFriend;
   }
 
+  //Now the same but for the sender
+  friendsNode* current2 = sender->friends_first;
+  friendsNode* newFriend2 = (friendsNode*) malloc(sizeof(friendsNode));
+
+  strcpy(newFriend2->username, user->username);
+  newFriend2->next = NULL;
+
+  if(current2 == NULL) {
+    // If the linked list is empty, add the new friend as the head
+    sender->friends_first = newFriend2;
+  } else {
+    // Find the last friend in the linked list
+    while(current2->next != NULL) {
+      current2 = current2->next;
+    }
+    // Add the new friend to the end of the list
+    current2->next = newFriend2;
+  }
 }

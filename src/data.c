@@ -32,7 +32,7 @@ int line_count(const char * filename){
   return lines;
 }
 
-void import_data(userArray* array, char* users_filename, char* posts_filename){
+void import_data(userArray* array, char* users_filename, char* posts_filename, Dictionary * dictionary){
 
   //We count the number of lines in the user file
   int num_users = line_count(users_filename);
@@ -78,6 +78,21 @@ void import_data(userArray* array, char* users_filename, char* posts_filename){
     
   }
   fclose(fp);
+
+  //We count the number of lines in the posts file
+  int num_posts = line_count(posts_filename);
+  fp = fopen(users_filename, "r");
+
+  //Parameters to read from file
+  int post_id, hour, min;
+  char* post;
+  char * date;
+  
+  for(int j = 0; j < num_posts; j++){
+    fscanf(fp, "%d. %s %s %d:%d %[^-]%*c", &post_id, username, date, &hour, &min, post);
+    User* post_user = search_user(username, array);
+    push_post(post_user->posts, post, dictionary);
+  }
 }
 
 void save_user(User* user, char* filename){
@@ -125,7 +140,7 @@ void save_post(char* post, User * user, char* filename){
   
   //We write the user data in the first available line
   //We use a hyphen to mark the end of the description text
-  fprintf(fp, "\n%d. %s %s %d:%d %s----------------------------------------------------------------------------------------------------", lines/2 +1, user->username, actual_date, times->tm_hour + 2, times->tm_min, post);
+  fprintf(fp, "\n%d. %s %s %d:%d %s", lines/2 +1, user->username, actual_date, times->tm_hour + 2, times->tm_min, post);
   //We close the file
   fclose(fp);
 }
