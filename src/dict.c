@@ -83,7 +83,7 @@ void print_dictionary_ranking(const Dictionary* dictionary) {
 
   for (i = 0; i < count; i++) {
     if (i < dictionary->actual_size) {
-      printf("%d. \"%s\": %d times\n", i + 1, dictionary->data[i].word, dictionary->data[i].count);
+      printf("%d. \"%s\": %d\n", i + 1, dictionary->data[i].word, dictionary->data[i].count);
     }
   }
 }

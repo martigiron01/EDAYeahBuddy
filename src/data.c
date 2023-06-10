@@ -141,9 +141,7 @@ void import_data(userArray* array, char* users_filename, char* posts_filename, D
         break;
       }
     }
-    // Imprime los resultados obtenidos
-    printf("Username: %s\n", username_post);
-    printf("Post: %s\n", post);
+    
     User* user2 = (User*) malloc(sizeof(User));
     user2 = search_user(username_post, array);
     push_post(user2->posts, post, dictionary);
