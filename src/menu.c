@@ -56,7 +56,7 @@ void ask_user(userArray* array){
   
   flush_input();
   fgets(description, sizeof(description), stdin);
-  strcpy(description, user->description);
+  strcpy(user->description, description);
   
   printf("\nGym postcode:\n");
   scanf("%d", &user->gym_id);

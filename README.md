@@ -61,11 +61,16 @@ Todo esto pensado para hacer la estancia de los usuarios en YeahBuddy lo más ag
 
 - **Lectura y guardado de datos**
 Hemos implementado funciones de guardado de datos a archivos `.txt` como `save_user()`  y `save_post()` que almacenan datos en archivos `.txt` que después de pueden leer e importar usando `import_data()`. Ver en detalle en `data.c:100`.
-    - `void save_user(User* user, char* filename)` abre `filename` en modo 'append' y escribe los datos de `user` en la siguiente línea del archivo:
+    - `void save_user(User* user, char* filename)` abre `filename` en modo 'append' y escribe los datos de `user` en la siguiente línea disponible del archivo con el siguiente formato:
     ```C
-    fprintf(fp, "\n%d %s %s %s %s- %d %d %d %d %d %d %d %d %d", lines, user->username, user->name, user->mail_adress, user->description, user->age, user->sex, user->body_weight, user->height, user->city_id, user->gym_id, user->workout_days, user->time_preference, user->muscle_preference);```
+    fprintf(fp, "\n%d %s %s %s %s- %d %d %d %d %d %d %d %d %d", lines, user->username, user->name, user->mail_adress, user->description, user->age, user->sex, user->body_weight, user->height, user->city_id, user->gym_id, user->workout_days, user->time_preference, user->muscle_preference);
+    ```
+    - `void save_post(char* post, User* user, char* filename)` abre `filename` en modo 'append' y almacena los datos de `post` en en la siguiente línea disponible del archivo con el formato especificado más abajo. También usa funciones de la librería `<time.h>` para guardar la hora y fecha de la publicación y guarda el nombre de usuario de `user`, que es el autor. Lo hace siguiendo el siguiente formato:
+    ```C
+    fprintf(fp, "\n%d. [%s] %s %d:%d {%s}", lines, user->username, actual_date, times->tm_hour + 2, times->tm_min, post);
+    ```
 ## Solución
-#### Arquitectura del sistema
+### Arquitectura del sistema
 
 ## Referencias
 

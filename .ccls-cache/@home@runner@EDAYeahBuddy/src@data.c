@@ -90,22 +90,22 @@ void import_data(userArray* array, char* users_filename, char* posts_filename, D
   int foundBracket = 0;
   int foundClaudator = 0;
 
-  // Verifica si el archivo se pudo abrir correctamente
+  // Check if the file could be opened successfully
   if (fp2 == NULL) {
     printf("The file could not be opened.\n");
     return;
   }
   for(int j = 0; j<num_posts; j++){
-    // Recorre el archivo caracter por caracter hasta llegar al final
+    // Go through the file character by character until you reach the end
     while ((caracter = fgetc(fp2)) != EOF) {
-      // Si se encuentra el caracter '[' se inicia la lectura del username
+      // If the character '[' is found, the reading of the username starts
       if (caracter == '[') {
         foundBracket = 1;
         i = 0;
         continue;
         }
   
-      // Si se encuentra el caracter ']' se finaliza la lectura del username
+      // If the character ']' is found, the reading of the username is finished
       if (foundBracket && caracter == ']') {
         foundBracket = 0;
         username_post[i] = '\0';
@@ -113,7 +113,7 @@ void import_data(userArray* array, char* users_filename, char* posts_filename, D
         continue;
       }
   
-      // Si se encuentra el caracter '['  por segunda vez se inicia la lectura del post
+      // If the character '[' is found for the second time, the reading of the post starts
       if (caracter == '{') {
         foundClaudator = 1;
         i = 0;
@@ -127,7 +127,7 @@ void import_data(userArray* array, char* users_filename, char* posts_filename, D
         continue;
       }
   
-      // Si se encuentra otro caracter mientras se está leyendo el username o el post, se guarda en la respectiva variable
+      // If another character is found while reading the username or the post, it is saved in the respective variable
       if (foundBracket) {
         username_post[i] = caracter;
         i++;
@@ -146,7 +146,7 @@ void import_data(userArray* array, char* users_filename, char* posts_filename, D
     user2 = search_user(username_post, array);
     push_post(user2->posts, post, dictionary);
   }
-  // Cierra el archivo
+  // Close the file
   fclose(fp2);
 
 }
