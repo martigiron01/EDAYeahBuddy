@@ -14,3 +14,5 @@
 14 OliviaM Olivia oliviam@gmail.com Hiking lover and nature explorer - 26 0 63 155 98765 78901 257 1519 4
 15 DanielS Daniel daniels@gmail.com Soccer player and sports fan - 28 1 78 180 23456 21098 167 1924 3
 16 JessicaF Jessica jessicaf@gmail.com Cross training enthusiast and HIIT lover - 31 0 67 165 87654 12345 345 2406 2
+16 ManuelR Manuel manuel@gmail.com - 54 1 0 0 8255 0 0 0 0
+17 tutifruti Tuti tuti@fruti.com - 18 0 10 160 8100 8100 3 609 4

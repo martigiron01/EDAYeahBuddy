@@ -52,7 +52,9 @@ void ask_user(userArray* array){
   scanf("%d", &user->city_id);
 
   printf("\nNow let's create your fitness profile.\n");
-  printf("\nTell us about you: (Max. %d characters)", MAX_DESCRIPTION);
+  printf("\nTell us about you: (Max. %d characters)\n", MAX_DESCRIPTION);
+  
+  flush_input();
   fgets(description, sizeof(description), stdin);
   strcpy(description, user->description);
   
@@ -68,10 +70,10 @@ void ask_user(userArray* array){
   printf("\nWorkout days (Monday:1, Tuesday:2, Wednesday:3, Thursday:4, Friday:5, Saturday:6 and  Sunday:7):\n");
   scanf("%d", &user->workout_days);
   
-  printf("\nTime preference (00:00-6:00 ->2406,6:00-9:00 -> 0609, 9:00-12:00 -> 0912, 12:00-15:00 -> 1215, 15:00-19:00 -> 1519 and 19:00-00:00 -> 1924):\n");
+  printf("\nTime preference (00:00-6:00 -> 2406, 6:00-9:00 -> 0609, 9:00-12:00 -> 0912, 12:00-15:00 -> 1215, 15:00-19:00 -> 1519 and 19:00-00:00 -> 1924):\n");
   scanf("%d", &user->time_preference);
   
-  printf("\nFavourite muscle group (Arms:1, Back:2, Chest:3,Legs:4 and Glutes:5):\n");
+  printf("\nFavourite muscle group (Arms:1, Back:2, Chest:3, Legs:4 and Glutes:5):\n");
   scanf("%d", &user->muscle_preference);
   
  

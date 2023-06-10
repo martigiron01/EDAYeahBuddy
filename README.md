@@ -5,7 +5,6 @@ YeahBuddy es la red social por y para amantes del fitness que necesitas!
 - Objetivos del proyecto
 - Solución
 - Referencias
-- 
 ## Introducción
 Cuando empezamos con este proyecto, no sabíamos qué haría a nuestra red social diferente. No sabíamos cuál sería el tema o qué la haría útil o divertida. Así que preguntamos a Chat GPT. Tan pronto como leímos sus propuestas, lo supimos inmediatamente: una red social de fitness. A los tres nos encanta el gimnasio y el fitness en general así que era la idea perfecta. Además, es una idea bastante original ya que aún no hay aplicaciones grandes o conocidas que hagan eso. Inicialmente, pensamos que sería buena idea que los usuarios pudieran encontrar gente con la que entrenar cerca, aún que esto no se ha podido acabar de implementar. Lo que sí hemos conseguido es crear una red donde los usuarios pueden hacer un seguimiento de su progreso y publicar sus avances en el ámbito del fitness y conocer a personas fantásticas en el proceso.
 ## Objetivos del proyecto
