@@ -4,7 +4,7 @@
 3 MikeJ Mike mikej@gmail.com Bodybuilder and weightlifting enthusiast - 35 1 80 102 98765 43210 123456 1519 5
 4 LisaB Lisa lisab@gmail.com CrossFit lover and adventure seeker - 29 0 65 163 23456 78901 135 1924 4
 5 DavidW David davidw@gmail.com Beginner in fitness, looking to improve - 42 1 90 114 87654 21098 246 2406 1
-7 Joselu José joselu@gmail.com ... - 63 1 99 176 08100 08100 246 1924 3
+7 Joselu José joselu@gmail.com rhjkl - 63 1 99 176 08100 08100 246 1924 3
 8 SarahH Sarah sarahh@gmail.com Gymnastics enthusiast and flexibility trainer - 25 0 55 165 54321 12345 245 0912 3
 9 AlexR Alex alexr@gmail.com Marathon runner and outdoor enthusiast - 31 1 75 175 98765 67890 123 1924 4
 10 EmilyT Emily emilyt@gmail.com Zumba lover and dance enthusiast - 27 0 62 160 23456 78901 467 1215 3
@@ -13,9 +13,4 @@
 13 RobertL Robert robertl@gmail.com Cyclist and bike riding enthusiast - 33 1 72 175 54321 67890 567 1519 5
 14 OliviaM Olivia oliviam@gmail.com Hiking lover and nature explorer - 26 0 63 155 98765 78901 257 1519 4
 15 DanielS Daniel daniels@gmail.com Soccer player and sports fan - 28 1 78 180 23456 21098 167 1924 3
-16 JessicaF Jessica jessicaf@gmail.com Cross-training enthusiast and HIIT lover - 31 0 67 165 87654 12345 345 2406 2
-17 BenjaminH Benjamin benjaminh@gmail.com Powerlifter and strength training enthusiast - 29 1 85 190 8100 67890 237 0912 1
-18 EmmaJ Emma emmaj@gmail.com Yoga and meditation enthusiast - 27 0 60 170 54321 78901 345 1215 3
-19 ChristopherC Christopher christopherc@gmail.com Rugby player and team sports enthusiast - 32 1 90 195 98765 65432 123 1519 4
-20 SophiaR Sophia sophiar@gmail.com Dance fitness and Zumba lover - 26 0 58 160 23456 54321 234 1924 3
-20 rugse Roger ruger@gmail.com - 18 1 69 182 8100 8100 135 912 1
+16 JessicaF Jessica jessicaf@gmail.com Cross training enthusiast and HIIT lover - 31 0 67 165 87654 12345 345 2406 2

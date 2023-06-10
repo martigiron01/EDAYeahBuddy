@@ -9,20 +9,20 @@
 #include "../headers/menu.h"
 #include "../headers/friends.h"
 
-userArray * init_array() {
-  userArray * u = malloc(sizeof(userArray));
-  u->size = 0;
-  return u;
+userArray* init_array() {
+  userArray* array = malloc(sizeof(userArray));
+  array->size = 0;
+  return array;
 }
 
-void add_user(User user,userArray * array){
-  array -> size++;
-  array -> data = malloc(array -> size * sizeof(User));
-  array -> data[array->size - 1] = user;
+void add_user(User user,userArray* array){
+  array->size++;
+  array->data = malloc(array->size * sizeof(User));
+  array->data[array->size - 1] = user;
   user.requestsQueue = (User **)malloc(sizeof(User*));
 }
 
-User* search_user(char * username, userArray * array){
+User* search_user(char* username, userArray* array){
   for(int i = 0; i < array->size; i++){
     if(strcmp(username, array->data[i].username) == 0){
       return &array->data[i];
@@ -33,7 +33,7 @@ User* search_user(char * username, userArray * array){
 
 
 
-bool check_data(char * username, char * email){
+bool check_data(char* username, char* email){
   // Check that the username contains at least 4 characters
     if (strlen(username) < 4) {
         return false;
@@ -85,7 +85,7 @@ bool check_data(char * username, char * email){
     return true;
 }
 
-int create_user(char * username, char * email, userArray * array){
+int create_user(char* username, char* email, userArray* array){
   if (check_data(username, email) == false){
     printf("\nIntroduce un usuario y/o correo electrónico válidos!\n");
     return -1;
@@ -99,7 +99,7 @@ int create_user(char * username, char * email, userArray * array){
   }
 
   //Finally we create the new user
-  User* new_user = (User *) malloc(sizeof(User));
+  User* new_user = (User*) malloc(sizeof(User));
   strcpy(new_user->username, username);
   strcpy(new_user->mail_adress, email);
   new_user->posts = posts_init_stack();

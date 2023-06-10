@@ -3,64 +3,61 @@
 #include "../headers/interface.h"
 #include "../headers/main.h"
 #include "../headers/user.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
 void print_line(int i) {
   printf("\n");
-  while(i > 0) {
+  while (i > 0) {
     printf("-");
     i--;
   }
   printf("\n");
 }
 
-char * sex_char(int id) {
-  char* sex_char = (char*) malloc(sizeof(char));
-  
-  if(id == 0) {
+char *sex_char(int id) {
+  char *sex_char = (char *)malloc(sizeof(char));
+
+  if (id == 0) {
     sex_char = "F";
-  } else if(id == 1) {
+  } else if (id == 1) {
     sex_char = "M";
   }
 
   return sex_char;
 }
 
-int spaces(char* str) {
+int spaces(char *str) {
   int spaces = MAX_LINE_LENGTH - strlen(str);
   return spaces;
 }
-/*for(int i = 0; i < spaces; i++) {
-    spaces_str[i] = ' ';
-  }
-  return spaces_str;*/
 
-char* divide_str(char* str, int line_length) {
-  for(int i = line_length; i > 0; i--) {
-    
-    if(strcmp(&str[i], " ") == 0) {
+char *divide_str(char *str, int line_length) {
+  for (int i = line_length; i > 0; i--) {
+
+    if (strcmp(&str[i], " ") == 0) {
       str[i] = '\n';
-      
+
       return " ";
-      
-    } else return "n";
+
+    } else
+      return "n";
   }
   return "f";
 }
 
-void print_user_info(User* user) {
-  char* username = user->username;
-  char* description = user->description;
+void print_user_info(User *user) {
+  char *username = user->username;
+  char *description = user->description;
   int age = user->age;
   int sex = user->sex;
   int height = user->height;
   int weight = user->body_weight;
 
   /*
-  Imprime la información del usuario con el formato siguiente:
-  
+  Prints the user information in the following format:
+
   * * * * * * * * * * * * * * * *
   *  [Username]                 *
   *                             *
@@ -74,15 +71,19 @@ void print_user_info(User* user) {
   *  Peso: [Weight]             *
   * * * * * * * * * * * * * * * *
   */
- // printf("%c", spaces(username)[-1]);
+
   printf("\n* * * * * * * * * * * * * * * *\n*  %s", username);
-  for(int i = 0; i<spaces(username); i++){
+  for (int i = 0; i < spaces(username); i++) {
     putchar(' ');
   }
   printf("  *\n*                             *\n*  %s", description);
-  for(int i = 0; i<spaces(description); i++){
+  for (int i = 0; i < spaces(description); i++) {
     putchar(' ');
   }
-  printf("  *\n* * * * * * * * * * * * * * * *\n*  Información personal       *\n*                             *\n*  Edad: %d                   *\n*  Sexo: %s                    *\n*  Altura: %d cm             *\n*  Peso: %d kg                *\n* * * * * * * * * * * * * * * *\n", age, sex_char(sex), height, weight);
-
+  printf("  *\n* * * * * * * * * * * * * * * *\n");
+  printf("*  Información personal       *\n*                             *\n");
+  printf("*  Edad: %d                   *\n*  Sexo: %s                    *\n* "
+         " Altura: %d cm             *\n*  Peso: %d kg                *\n* * * "
+         "* * * * * * * * * * * * *\n",
+         age, sex_char(sex), height, weight);
 }

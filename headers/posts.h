@@ -10,7 +10,7 @@
 #define MAX_POST_LENGTH 140
 
 typedef struct _postStack {
-  char** posts;
+  char** data;
   int top;
 } postStack;
 

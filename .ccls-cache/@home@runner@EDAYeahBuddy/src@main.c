@@ -12,11 +12,12 @@
 
 int main(void) {
   userArray* array = init_array();
-  Dictionary* global_words;
+  Dictionary* global_words = (Dictionary*)malloc(sizeof(Dictionary));
   init_dictionary(global_words);
   import_data(array, "users.txt", "posts.txt", global_words);
   printyeahbuddy();  // Print logo
   show_menu(array, global_words);
   free(array);
+  free(global_words->data);
   return 0;
 }

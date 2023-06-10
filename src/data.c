@@ -10,12 +10,12 @@
 #include "../headers/posts.h"
 #include "../headers/interface.h"
 
-int line_count(const char * filename){
+int line_count(const char* filename){
 
   //The last line does not contain '\n'
   int lines = 1;
   char character;
-  FILE * fp = fopen(filename, "r");
+  FILE* fp = fopen(filename, "r");
   
   //Error opening file
   if(fp == NULL) return 0;
@@ -32,7 +32,7 @@ int line_count(const char * filename){
   return lines;
 }
 
-void import_data(userArray* array, char* users_filename, char* posts_filename, Dictionary * dictionary){
+void import_data(userArray* array, char* users_filename, char* posts_filename, Dictionary* dictionary){
 
   //We count the number of lines in the user file
   int num_users = line_count(users_filename);
@@ -81,18 +81,76 @@ void import_data(userArray* array, char* users_filename, char* posts_filename, D
 
   //We count the number of lines in the posts file
   int num_posts = line_count(posts_filename);
-  fp = fopen(users_filename, "r");
+  FILE * fp2 = fopen(posts_filename, "r");
 
-  //Parameters to read from file
-  int post_id, hour, min;
-  char* post;
-  char * date;
-  
-  for(int j = 0; j < num_posts; j++){
-    fscanf(fp, "%d. %s %s %d:%d %[^-]%*c", &post_id, username, date, &hour, &min, post);
-    User* post_user = search_user(username, array);
-    push_post(post_user->posts, post, dictionary);
+  char username_post[100];
+  char post[100];
+  char caracter;
+  int i = 0;
+  int foundBracket = 0;
+  int foundClaudator = 0;
+
+  // Verifica si el archivo se pudo abrir correctamente
+  if (fp2 == NULL) {
+    printf("The file could not be opened.\n");
+    return;
   }
+  for(int j = 0; j<num_posts; j++){
+    // Recorre el archivo caracter por caracter hasta llegar al final
+    while ((caracter = fgetc(fp2)) != EOF) {
+      // Si se encuentra el caracter '[' se inicia la lectura del username
+      if (caracter == '[') {
+        foundBracket = 1;
+        i = 0;
+        continue;
+        }
+  
+      // Si se encuentra el caracter ']' se finaliza la lectura del username
+      if (foundBracket && caracter == ']') {
+        foundBracket = 0;
+        username_post[i] = '\0';
+        i = 0;
+        continue;
+      }
+  
+      // Si se encuentra el caracter '['  por segunda vez se inicia la lectura del post
+      if (caracter == '{') {
+        foundClaudator = 1;
+        i = 0;
+        continue;
+      }
+  
+      if (foundClaudator && caracter == '}') {
+        foundClaudator = 0;
+        post[i] = '\0';
+        i = 0;
+        continue;
+      }
+  
+      // Si se encuentra otro caracter mientras se está leyendo el username o el post, se guarda en la respectiva variable
+      if (foundBracket) {
+        username_post[i] = caracter;
+        i++;
+      } 
+      if (foundClaudator) {
+        post[i] = caracter;
+        i++;
+      }
+
+      if (caracter == '\n'){
+        break;
+      }
+    }
+    // Imprime los resultados obtenidos
+    printf("Username: %s\n", username_post);
+    printf("Post: %s\n", post);
+    User* user2 = (User*) malloc(sizeof(User));
+    user2 = search_user(username_post, array);
+    push_post(user2->posts, post, dictionary);
+  }
+  // Cierra el archivo
+  fclose(fp2);
+
 }
 
 void save_user(User* user, char* filename){
@@ -116,7 +174,7 @@ void save_user(User* user, char* filename){
   fclose(fp);
 }
 
-void save_post(char* post, User * user, char* filename){
+void save_post(char* post, User* user, char* filename){
 
   int lines = line_count(filename);
   FILE* fp = fopen(filename, "a");
@@ -140,7 +198,7 @@ void save_post(char* post, User * user, char* filename){
   
   //We write the user data in the first available line
   //We use a hyphen to mark the end of the description text
-  fprintf(fp, "\n%d. %s %s %d:%d %s", lines/2 +1, user->username, actual_date, times->tm_hour + 2, times->tm_min, post);
+  fprintf(fp, "\n%d. [%s] %s %d:%d {%s}", lines, user->username, actual_date, times->tm_hour + 2, times->tm_min, post);
   //We close the file
   fclose(fp);
 }

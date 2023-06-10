@@ -40,13 +40,13 @@ void ask_user(userArray* array){
     return;
   }
   
-  User *user = search_user(username, array);
+  User* user = search_user(username, array);
   
   printf("\nPerfect! Personal information:\n Name:\n");
   scanf("%s", name);
   printf("\nAge:\n");
   scanf("%d", &user->age);
-  printf("\nSex:\n");
+  printf("\nSex (Female:0, Male:1) :\n");
   scanf("%d", &user->sex);
   printf("\nPostcode:\n");
   scanf("%d", &user->city_id);
@@ -65,13 +65,13 @@ void ask_user(userArray* array){
   printf("\nCurrent body weight:\n");
   scanf("%d", &user->body_weight);
   
-  printf("\nWorkout days:\n");
+  printf("\nWorkout days (Monday:1, Tuesday:2, Wednesday:3, Thursday:4, Friday:5, Saturday:6 and  Sunday:7):\n");
   scanf("%d", &user->workout_days);
   
-  printf("\nTime preference:\n");
+  printf("\nTime preference (00:00-6:00 ->2406,6:00-9:00 -> 0609, 9:00-12:00 -> 0912, 12:00-15:00 -> 1215, 15:00-19:00 -> 1519 and 19:00-00:00 -> 1924):\n");
   scanf("%d", &user->time_preference);
   
-  printf("\nFavourite muscle group:\n");
+  printf("\nFavourite muscle group (Arms:1, Back:2, Chest:3,Legs:4 and Glutes:5):\n");
   scanf("%d", &user->muscle_preference);
   
  
@@ -83,8 +83,9 @@ void ask_user(userArray* array){
 
 
 void show_friends_menu(User* user, userArray* array){
-  // Texto del submenú
-  char txt_friends_menu[MAX_TEXT] = "\n[0] - Go Back\n[1] - Send Friend Request \n[2] - View Friends Requests \n[3] - View Friend List\n\n";
+  // Friends menu text
+  char txt_friends_menu[MAX_TEXT] = "\n[0] - Go back\n[1] - Send friend request \n[2] - View friend requests \n[3] - Friends list\n\n";
+  
   int option_friends = OPTION_INVALID;
     
   while(option_friends != OPTION_QUIT) {
@@ -102,7 +103,7 @@ void show_friends_menu(User* user, userArray* array){
       printf("Username:\n ");
       scanf("%s",searchUsername);
       
-      User *foundUser = search_user(searchUsername, array);
+      User* foundUser = search_user(searchUsername, array);
       
       if(foundUser != NULL){
         printf("\nUser found!\n");
@@ -112,19 +113,19 @@ void show_friends_menu(User* user, userArray* array){
       } else {
         printf("User not found!\n");
         }
-    } else if(option_friends  == 2) {  // Ver solicitudes de amistad
+    } else if(option_friends  == 2) {  // View friends requests
         requests_print(user);
       
-    } else if(option_friends  == 3) { // Ver lista de amigos
+    } else if(option_friends  == 3) { // Friends list
         print_friends_list(user);
       
         char option_username[50];
-        printf("Write friend username to see its profile: (0 to quit)\n");
+        printf("\nWrite friend username to see its profile: (0 to quit)\n");
         scanf("%s", option_username);
       
         if(option_username[0] == '0')continue;
       
-        User * friend = search_user(option_username, array);
+        User* friend = search_user(option_username, array);
       
         if(friend == NULL){
           printf("User not found!\n");
@@ -137,11 +138,10 @@ void show_friends_menu(User* user, userArray* array){
 }
 
 /*
-* Función submenú. Muestra un submenú cuando se escoge la opción
-* 3) Operar como usuario específico en la función menu()
+* Sumbenu function. Shows the submenu.
 */
 void show_submenu(User* user, userArray* array, Dictionary * dictionary){
-  // Texto del submenú
+  // Submenu text
   char txt_submenu[MAX_TEXT] = "\n[0] - Sign out\n[1] - Your profile\n[2] - Friends\n[3] - Add a post\n[4] - Feed\n\n";
   char searchUsername[MAX_LENGTH];
   int option_submenu = OPTION_INVALID;
@@ -152,10 +152,10 @@ void show_submenu(User* user, userArray* array, Dictionary * dictionary){
     
     print_line(SEPARATION_LINE_LENGTH); // Separation line
     
-    printf("%s", txt_submenu); // Imprime el menú
-    scanf("%d", &option_submenu); // Usuario escoge opción
+    printf("%s", txt_submenu); // Prints submenu
+    scanf("%d", &option_submenu); // User choses option
     
-    flush_input(); // Vacía el buffer de entrada
+    flush_input(); // Empties input buffer
 
     if(option_submenu == 1) {  // Your profile
       print_user_info(user);
@@ -168,14 +168,14 @@ void show_submenu(User* user, userArray* array, Dictionary * dictionary){
       save_post(post, user, "posts.txt");
       printf("\nSuccesfully posted!");
       
-    } else if(option_submenu == 4){ // Ver publicaiones de los usuarios
+    } else if(option_submenu == 4){ // View feed posts
         FILE * fp = fopen("posts.txt", "r");
         char caracter;
         if (fp == NULL) {
           printf("File opening error!\n");
         }
     
-        // Leer y mostrar el contenido del archivo
+        // Reads and shows the file content
         while ((caracter = fgetc(fp)) != EOF) {
             printf("%c", caracter);
         }
@@ -208,13 +208,13 @@ void show_menu(userArray* array, Dictionary * dictionary) {
     
     flush_input(); // Empties the input buffer
     
-    if(option == 1) {  // Insertar nuevo usuario
+    if(option == 1) {  // Insert new user
         ask_user(array);
       
     } else if(option == 2) {  // Users list
         print_user_list(array);
       
-    } else if(option == 3){  // Operar como usuario específico
+    } else if(option == 3){  // Operate as specific user
         char username[25];
         printf("\nEnter the username:\n");
         scanf("%s", username);

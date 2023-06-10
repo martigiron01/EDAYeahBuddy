@@ -8,6 +8,10 @@
 
 void init_dictionary(Dictionary* dictionary){
   dictionary->data = (Pair*) malloc(1000 * sizeof(Pair));
+  if(dictionary->data == NULL){
+    printf("Saving memory error!");
+    return;
+  }
   dictionary->actual_size = 0;
   dictionary->capacity = 1000;
 }
@@ -40,7 +44,7 @@ void process_post(Dictionary* dictionary, const char* text) {
   char* word;
   
   //We make a copy of the original text
-  char* textCopy;
+  char* textCopy = (char*)malloc(strlen(text) + 1);
   strcpy(textCopy, text);
 
   //We divide the text in words by spaces
@@ -56,29 +60,31 @@ void process_post(Dictionary* dictionary, const char* text) {
 }
 
 void print_dictionary_ranking(const Dictionary* dictionary) {
-  //We sort, using bubble sort, the dictionary based on word count
+  // We sort the dictionary based on word count using bubble sort
   Pair temp;
   int i, j;
-  for(i = 0; i < dictionary->actual_size - 1; i++){
-      for(j = 0; j < dictionary->actual_size - i - 1; j++){
-          if(dictionary->data[j].count < dictionary->data[j + 1].count){
-              temp = dictionary->data[j];
-              dictionary->data[j] = dictionary->data[j + 1];
-              dictionary->data[j + 1] = temp;
-          }
+  for (i = 0; i < dictionary->actual_size - 1; i++) {
+    for (j = 0; j < dictionary->actual_size - i - 1; j++) {
+      if (dictionary->data[j].count < dictionary->data[j + 1].count) {
+          temp = dictionary->data[j];
+          dictionary->data[j] = dictionary->data[j + 1];
+          dictionary->data[j + 1] = temp;
       }
+    }
   }
 
-  //Now we print the ranking
+  // Now we print the ranking
   int count;
-  if(dictionary->actual_size < 10){
+  if (dictionary->actual_size < 10) {
     count = dictionary->actual_size;
-  }else {
+  } else {
     count = 10;
   }
 
   for (i = 0; i < count; i++) {
+    if (i < dictionary->actual_size) {
       printf("%d. \"%s\": %d times\n", i + 1, dictionary->data[i].word, dictionary->data[i].count);
+    }
   }
 }
 
