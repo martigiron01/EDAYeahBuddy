@@ -1,4 +1,5 @@
 # YeahBuddy
+Por: Martí Girón, Arnau Carbonell y Roger Guiñón<br/><hr/>
 YeahBuddy es la red social por y para amantes del fitness que necesitas!
 ## Contenidos
 - Introducción
