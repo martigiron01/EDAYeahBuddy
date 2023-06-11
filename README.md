@@ -50,8 +50,8 @@ Tenemos un archivo `users.txt` donde se almacenan datos de los usuarios y otro a
       Para saber cuántos usuarios hay en el archivo, usamos la función `line_count()` que nos dice el número de líneas de `users_filename`, que es equivalente al número de usuarios. Luego crea un nuevo usuario y le asigna los datos correspondientes. Algo parecido hace con `users_filename`, pero en vez de usuarios, procesa publicaciones.
 
 - **Personalización de la red social.**
-Como ya hemos explicado anteriormente, nuestra red social se basa en la comunidad fitness y es un lugar para conectar con otras personas que vayan al gimnasio o practique tu misma disciplina en ese mundillo. Así que la temática y personalización es precisamente esa. Podemos ver aspectos de la personalización cuando creamos un nuevo usuario. Verás que se piden cosas como tu estilo de entrenamiento, días que puedes entrenar, grupos musculares favoritos y mucho más.
-Esto hace nuestra red social única y enfocada en su temática: el fitness.
+Como ya hemos explicado anteriormente, nuestra red social se basa en la comunidad fitness y es un lugar para conectar con otras personas que vayan al gimnasio o practique tu misma disciplina en ese mundillo. Así que la temática y personalización es precisamente esa. Podemos ver aspectos de la personalización cuando creamos un nuevo usuario. Verás que se piden cosas como tu estilo de entrenamiento, días que puedes entrenar, grupos musculares favoritos y mucho más. Podemos ver más sobre esto en `preferences.h`.
+Todo esto hace nuestra red social única y enfocada en su temática: el fitness.
 ### Objetivos libres
 - **Capa estética.**
 Si bien es verdad que crear una interfaz cómoda, agradable y fácil de usar por consola no es una tarea sencilla, hemos hecho el esfuerzo de hacerlo lo más intuitivo y bonito posible. Para empezar, nada más ejecutar, tienes una "pantalla de bienvenida" con el logo de la aplicación. Ver `logo.c`. Desde aquí, no irás a ningún lado hasta que introduzcas un carácter cualquiera y le des a ENTER. 
@@ -71,6 +71,45 @@ Hemos implementado funciones de guardado de datos a archivos `.txt` como `save_u
     ```
 ## Solución
 ### Arquitectura del sistema
+YeahBuddy es una red social orientada al mundo del fitness y el deporte. Permite a los usuarios compartir publicaciones, añadir amigos, hacer un seguimiento de su progreso, etc. Al ser un proyecto relativamente extenso, puede ser fácil perderse entendiendo el código o sus funcionalidades, así que describiremos el funcionamiento y uso de los bloques principales que comportan el proyecto.
+![Diagrama de la arquitectura](img/arquitectura.png)
+- **Usuarios (`user.h` y `user.c`):**
+Este primer bloque se encarga de la gestión de usuarios, incluyendo el registro, búsqueda y demás operaciones. Cada usuario se almacena en una estructura de datos `User`, que contiene información del usuario como su nombre, edad, sexo, lista de amigos, publicaciones y otras preferencias relacionadas con el fitness. Además, cada estructura `User` se almacena a su vez en un array de usuarios `userArray`, que almacena los usuarios y una entero `size` que marca el tamaño del array.
+Este bloque incluye funciones para añadir y buscar usuarios y verificar la validez de los datos de los usuarios. También se utilizan otros módulos, como el de publicaciones y el de amigos, para gestionar la información relacionada con los usuarios.<br/><br/>
+- **Amigos (`friends.h` y `friends.c`):**
+Este bloque se encarga de las operaciones relacionadas con la gestión de amistades entre usuarios. Permite enviar y aceptar solicitudes de amistad, y mantener una lista enlazada de amigos para cada usuario que se define con `friendsNode` en `user.h:8`.
+Las solicitudes de amistad se gestionan mediante una cola, de la que ya hemos hablado anteriormente.<br/><br/>
+- **Publicaciones (`posts.h` y `posts.c`):**
+Se encarga de la gestión de las publicaciones de los usuarios. Cada usuario tiene una pila de publicaciones que se define como `postStack` en `posts.h:12`. Permite crear y añadir publicaciones a la pila, eliminarlas y otras operaciones relacionadas con la gestión de publicaciones. Cada publicación se representa como una cadena de caracteres `char*` y se guarda en la pila del usuario correspondiente.<br/><br/>
+- **Diccionario (`dict.h` y `dict.c`):**
+El diccionario se utiliza para almacenar palabras y contar su frecuencia en las publicaciones. Permite realizar operaciones como agregar palabras, buscar palabras y obtener la frecuencia de una palabra específica. El diccionario se define como `Dictionary` en `dict.h:11` y los pares llave-valor como `Pair` en `dict.h:6`.<br/><br/>
+- **Menús (`menu.h` y `menu.c`)**
+Este bloque implementa una interfaz para que los usuarios interactúen con el sistema. Permite realizar acciones como el registro de nuevos usuarios, inicio de sesión, creación de publicaciones, búsqueda de usuarios, gestión de amistades y visualización de información relacionada con los usuarios.
+Para ello, utiliza las funciones proporcionadas por los módulos anteriores para realizar las diversas operaciones y mostrar los resultados al usuario. Se basa en la interacción con el usuario para recopilar la entrada y proporcionar salidas adecuadas.<br/><br/>
+- **Gestión y almacenamiento de datos (`data.h` y `data.c`):**
+Este último bloque se encarga de la gestión de guardado y uso de datos de ficheros `.txt`. Tanto la información de los usuarios como las publicaciones se guardan en archivos `.txt` con las funciones `save_user()` y `save_post()` y se importan desde esos archivos para usar con la función `import_data()`.
+### Gestión de errores
+La gestión de errores en el código se puede ver en varias funcionalidades y funciones.
+Una de las más importantes se encuentra en la función `create_user()` del archivo `user.c`que verifica si el nombre de usuario o la dirección de correo electrónico ya están en uso antes de crear un nuevo usuario. Al verificar la existencia previa de nombres de usuario y direcciones de correo electrónico, se evita la duplicación de información y se garantiza que cada usuario tenga un identificador único. Esto contribuye a la integridad de los datos y evita conflictos en futuras operaciones que involucren usuarios.
+Relacionado con esto, incluimos una función `check_data()` dedicada específicamente a comprobar la validez del nombre de usuario y correo electrónico del usuario. Esta validación se realiza para asegurarse de que los datos ingresados por el usuario cumplan con ciertos criterios, como la longitud mínima, el formato de correo electrónico válido y la ausencia de espacios en blanco.
+También tenemos control de errores de asignación de memoria en funciones como `init_array()` y `create_user()`, donde se realiza una verificación después de asignar memoria dinámicamente para asegurarse de que la asignación de memoria fue exitosa. En caso de una asignación fallida, se muestra un mensaje de error y se toman las medidas adecuadas, como liberar memoria previamente asignada y notificar al usuario sobre la situación.
+Por último, en la función `search_user()` del archivo `user.c`, se retorna `NULL` si no se encuentra un usuario con el nombre de usuario especificado con la idea de proporcionar una forma clara de indicar que la búsqueda no tuvo éxito. Esto permite a otras partes del programa manejar este caso y tomar decisiones apropiadas en función de la existencia o ausencia de un usuario.
+### Flujo de datos
+El flujo de datos en el proyecto sigue un ciclo general que involucra la entrada, procesamiento y salida de datos. A continuación, se describe el flujo de datos en el proyecto:
 
+1. **Entrada de datos:**
+Los datos de entrada en el proyecto provienen de diversas fuentes, como la interacción del usuario con el programa o la lectura de archivos externos.
+Por ejemplo, los datos de entrada pueden incluir el nombre de usuario y la contraseña ingresados por el usuario al iniciar sesión, los datos de un nuevo usuario registrado o los datos leídos de archivos que contienen información relevante.<br/><br/>
+2. **Procesamiento de datos:**
+Una vez que los datos de entrada son adquiridos, se procesan y manipulan para llevar a cabo diversas operaciones y cálculos.
+El procesamiento de datos puede incluir la validación de la información ingresada por el usuario, la aplicación de reglas de negocio para determinar acciones a tomar, la ejecución de algoritmos o la realización de cálculos basados en los datos disponibles.
+Por ejemplo, se pueden realizar operaciones como la creación de un nuevo usuario en la estructura de datos correspondiente, la búsqueda y recuperación de información relevante, la actualización de perfiles de usuario o la generación de informes y estadísticas.<br/><br/>
+3. **Salida de datos:**
+Una vez que los datos se han procesado, se proporciona una salida para mostrar los resultados al usuario o almacenarlos en archivos.
+La salida de datos puede incluir la visualización de información en la interfaz de usuario, la generación de informes en formato legible o la escritura de datos en archivos para su posterior uso.
+Por ejemplo, los resultados de una búsqueda de usuarios pueden mostrarse en la pantalla, los informes generados pueden guardarse en archivos de texto o los datos actualizados pueden almacenarse en una base de datos.
+El flujo de datos en el proyecto se repite y se adapta a las diferentes funcionalidades y requerimientos del sistema. Los datos fluyen de la entrada al procesamiento y finalmente a la salida, permitiendo la interacción con el usuario y la manipulación de la información de manera eficiente y estructurada<br/><br/>
+![Diagrama del flujo de datos](img/flujodatos.png)
 ## Referencias
-
+Chat GPT de OpenAI - https://chat.openai.com/<br/>
+Microsoft C docs - https://learn.microsoft.com/en-us/cpp/c-language/?view=msvc-170

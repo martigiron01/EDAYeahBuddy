@@ -87,4 +87,3 @@ void print_dictionary_ranking(const Dictionary* dictionary) {
     }
   }
 }
-

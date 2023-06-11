@@ -63,12 +63,12 @@ void print_user_info(User *user) {
   *                             *
   *  [Description]              *
   * * * * * * * * * * * * * * * *
-  *  Información personal       *
+  *  Personal information       *
   *                             *
-  *  Edad: [Age]                *
-  *  Sexo: [Sex]                *
-  *  Altura: [Height]           *
-  *  Peso: [Weight]             *
+  *  Age: [Age]                 *
+  *  Sex: [Sex]                 *
+  *  Height: [Height]           *
+  *  Weight: [Weight]           *
   * * * * * * * * * * * * * * * *
   */
 
@@ -81,9 +81,9 @@ void print_user_info(User *user) {
     putchar(' ');
   }
   printf("  *\n* * * * * * * * * * * * * * * *\n");
-  printf("*  Información personal       *\n*                             *\n");
-  printf("*  Edad: %d                   *\n*  Sexo: %s                    *\n* "
-         " Altura: %d cm             *\n*  Peso: %d kg                *\n* * * "
+  printf("*  Personal information       *\n*                             *\n");
+  printf("*  Age: %d                    *\n*  Sex: %s                     *\n* "
+         " Height: %d cm             *\n*  Weight: %d kg              *\n* * * "
          "* * * * * * * * * * * * *\n",
          age, sex_char(sex), height, weight);
 }
